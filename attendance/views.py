@@ -516,8 +516,12 @@ def manage_companies(request):
         if not is_lat and not (-180.0 <= decimal <= 180.0):
             raise ValueError('Longitude out of range (-180..180)')
         return decimal
+
     if request.method == 'POST':
         name = request.POST.get('name', '').strip()
+        address = request.POST.get('address', '').strip()
+        phone = request.POST.get('phone', '').strip()
+        email = request.POST.get('email', '').strip()
         lat_raw = request.POST.get('lat')
         lon_raw = request.POST.get('lon')
         radius = request.POST.get('radius') or 150
@@ -525,7 +529,10 @@ def manage_companies(request):
             try:
                 lat_dd = parse_coordinate(lat_raw, is_lat=True)
                 lon_dd = parse_coordinate(lon_raw, is_lat=False)
-                Company.objects.create(name=name, lat=lat_dd, lon=lon_dd, radius=radius)
+                Company.objects.create(
+                    name=name, lat=lat_dd, lon=lon_dd, radius=radius,
+                    address=address, phone=phone, email=email
+                )
                 messages.success(request, f'Company {name} added successfully')
             except Exception as e:
                 messages.error(request, f'Failed to add company: {str(e)}')
@@ -600,6 +607,9 @@ def edit_company(request, company_id):
     
     if request.method == 'POST':
         name = request.POST.get('name', '').strip()
+        address = request.POST.get('address', '').strip()
+        phone = request.POST.get('phone', '').strip()
+        email = request.POST.get('email', '').strip()
         lat_raw = request.POST.get('lat')
         lon_raw = request.POST.get('lon')
         radius = request.POST.get('radius') or 150
@@ -620,6 +630,9 @@ def edit_company(request, company_id):
                 company.lat = lat_dd
                 company.lon = lon_dd
                 company.radius = radius
+                company.address = address
+                company.phone = phone
+                company.email = email
                 company.save()
                 
                 messages.success(request, f'Company {name} updated successfully')
@@ -718,11 +731,8 @@ def mark_attendance_view(request):
                     return render(request, 'student/mark_attendance.html', context)
                 
                 # Create or update attendance log for check-in
-                if not (geofence_verified and face_verified):
-                    messages.error(request, 'Check-in failed. You must pass both location and face verification to check in.')
-                    context = _build_student_location_context(student_profile)
-                    return render(request, 'student/mark_attendance.html', context)
-
+                # Allow recording even if verification fails (will be marked as fail_geo/fail_face)
+                
                 if existing_attendance:
                     # Overwrite the previous attempt for today to reflect the latest result
                     existing_attendance.time = current_time
@@ -749,7 +759,14 @@ def mark_attendance_view(request):
                         device_info=device_info,
                         check_in_time=current_time
                     )
-                messages.success(request, 'Check-in successful! You are now pending check-out to be marked present.')
+                
+                if geofence_verified and face_verified:
+                    messages.success(request, 'Check-in successful! You are now pending check-out to be marked present.')
+                else:
+                    reasons = []
+                    if not geofence_verified: reasons.append("Location mismatch")
+                    if not face_verified: reasons.append("Face verification failed")
+                    messages.warning(request, f'Check-in recorded but failed: {", ".join(reasons)}. You are marked as Absent/Failed.')
             
             elif attendance_type == 'check_out':
                 if not existing_attendance or not existing_attendance.check_in_time:
@@ -762,11 +779,14 @@ def mark_attendance_view(request):
                     context = _build_student_location_context(student_profile)
                     return render(request, 'student/mark_attendance.html', context)
                 
-                # Require both verifications at check-out
-                if not (geofence_verified and face_verified):
-                    messages.error(request, 'Check-out failed. You must pass both location and face verification to complete attendance.')
-                    context = _build_student_location_context(student_profile)
-                    return render(request, 'student/mark_attendance.html', context)
+                # Update attendance log for check-out regardless of verification status
+                if geofence_verified and face_verified:
+                    messages.success(request, 'Check-out successful! You are marked present.')
+                else:
+                    reasons = []
+                    if not geofence_verified: reasons.append("Location mismatch")
+                    if not face_verified: reasons.append("Face verification failed")
+                    messages.warning(request, f'Check-out recorded but failed: {", ".join(reasons)}. Attendance not marked as Present.')
 
                 # Update attendance log for check-out
                 existing_attendance.check_out_time = current_time
@@ -774,8 +794,6 @@ def mark_attendance_view(request):
                 existing_attendance.face_verified = face_verified
                 existing_attendance.save()
                 attendance_log = existing_attendance
-                
-                messages.success(request, 'Check-out successful! You are marked present.')
             
             return redirect('users:student_dashboard')
             

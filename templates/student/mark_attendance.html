@@ -436,8 +436,8 @@ function showLocationValidationPopup(lat, lon, accuracy) {
                 </div>
             </div>
             <div class="popup-footer">
-                <button type="button" class="btn btn-success" onclick="proceedToCamera(${isAllowed})" ${isAllowed ? '' : 'disabled'}>
-                    <i class="bi bi-camera"></i> Proceed to Camera
+                <button type="button" class="btn ${isAllowed ? 'btn-success' : 'btn-warning'}" onclick="proceedToCamera(true)">
+                    <i class="bi bi-camera"></i> ${isAllowed ? 'Proceed to Camera' : 'Proceed Anyway (Will Mark as Absent)'}
                 </button>
                 <button type="button" class="btn btn-secondary" onclick="closeLocationPopup()">
                     Cancel
@@ -476,6 +476,14 @@ async function startCamera() {
         showCameraStatus('error', 'You must validate location within range before starting the camera.');
         return;
     }
+    
+    // Check for secure context
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        console.error('Secure Context required for camera access');
+        showCameraStatus('error', 'Camera requires HTTPS or localhost. If testing on mobile via IP, camera access is blocked by the browser security policy.');
+        return;
+    }
+
     try {
         showCameraStatus('info', 'Starting camera...');
         
@@ -504,7 +512,17 @@ async function startCamera() {
         
     } catch (error) {
         console.error('Camera error:', error);
-        showCameraStatus('error', 'Camera access denied or not available. Please allow camera access and try again.');
+        
+        let msg = 'Camera access denied or not available.';
+        if (error.name === 'NotAllowedError' || error.name === 'PermissionDeniedError') {
+            msg = 'Permission denied. Please allow camera access in your browser settings.';
+        } else if (error.name === 'NotFoundError' || error.name === 'DevicesNotFoundError') {
+            msg = 'No camera found on this device.';
+        } else if (error.name === 'NotReadableError' || error.name === 'TrackStartError') {
+            msg = 'Camera is already in use by another application.';
+        }
+        
+        showCameraStatus('error', msg + ' (' + error.name + ')');
     }
 }
 

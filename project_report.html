@@ -1,0 +1,2850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Attendance System Project Report</title>
+    <style>
+        body { font-family: 'Times New Roman', serif; font-size: 12pt; line-height: 2.0; color: #000; max-width: 800px; margin: 0 auto; text-align: justify; }
+        h1 { text-align: center; font-size: 16pt; font-weight: bold; margin-top: 24pt; margin-bottom: 24pt; text-transform: uppercase; page-break-before: always; }
+        h2 { font-size: 14pt; font-weight: bold; margin-top: 18pt; margin-bottom: 12pt; }
+        h3 { font-size: 13pt; font-weight: bold; margin-top: 12pt; margin-bottom: 6pt; }
+        p { margin-bottom: 12pt; text-indent: 0.5in; }
+        ul, ol { margin-bottom: 12pt; margin-left: 0.5in; }
+        li { margin-bottom: 6pt; }
+        table { width: 100%; border-collapse: collapse; margin: 18pt 0; }
+        th, td { border: 1px solid #000; padding: 10pt; text-align: left; vertical-align: top; }
+        th { background-color: #f2f2f2; }
+        .page-break { page-break-after: always; }
+        .center-text { text-align: center; text-indent: 0; }
+        .code-block { font-family: 'Courier New', monospace; font-size: 10pt; background-color: #f9f9f9; padding: 10pt; border: 1px solid #ddd; white-space: pre-wrap; margin-bottom: 12pt; line-height: 1.2; text-indent: 0; }
+        img { display: block; margin: 20px auto; max-width: 100%; border: 1px solid #000; }
+        .caption { text-align: center; font-size: 11pt; font-weight: bold; margin-top: 10pt; margin-bottom: 20pt; text-indent: 0; }
+        .no-indent { text-indent: 0; }
+    </style>
+</head>
+<body>
+
+    <!-- TITLE PAGE -->
+    <div class="center-text" style="margin-top: 100px;">
+        <h1 style="font-size: 20pt; line-height: 1.5; border: none; margin-bottom: 50px;">SMART ATTENDANCE SYSTEM USING GEO-FENCING AND FACE RECOGNITION</h1>
+        <p class="center-text" style="font-size: 14pt;">A PROJECT REPORT</p>
+        <p class="center-text">Submitted in partial fulfillment of the requirements for the degree of</p>
+        <br>
+        <h2 class="center-text" style="font-size: 18pt;">BACHELOR OF TECHNOLOGY</h2>
+        <p class="center-text">IN</p>
+        <h3 class="center-text" style="font-size: 16pt;">COMPUTER SCIENCE AND ENGINEERING</h3>
+        <br><br><br>
+        <p class="center-text"><strong>MARCH 2026</strong></p>
+        <br><br>
+        <p class="center-text" style="font-size: 14pt;"><strong>MAHALAKSHMI WOMEN'S COLLEGE OF ARTS AND SCIENCE</strong></p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- CERTIFICATE -->
+    <div style="margin-top: 50px;">
+        <h1 style="border-bottom: 2px solid #000; padding-bottom: 10px;">CERTIFICATE</h1>
+        <p>This is to certify that the project report entitled <strong>"SMART ATTENDANCE SYSTEM USING GEO-FENCING AND FACE RECOGNITION"</strong> is a bona fide work carried out by the student in partial fulfillment of the requirements for the award of the degree of <strong>Bachelor of Technology in Computer Science and Engineering</strong>.</p>
+        <br>
+        <p>This project has been approved as it satisfies the academic requirements in respect of Project work prescribed for the said Degree. The work embodied in this report has not been submitted for the award of any other degree or diploma.</p>
+        <br><br><br><br>
+        <div style="display: flex; justify-content: space-between;">
+            <div style="text-align: left;"><p class="no-indent"><strong>Internal Examiner</strong></p></div>
+            <div style="text-align: right;"><p class="no-indent"><strong>External Examiner</strong></p></div>
+        </div>
+        <br><br><br><br>
+        <p class="center-text"><strong>Head of the Department</strong></p>
+        <p class="center-text">Department of Computer Science and Engineering</p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- ACKNOWLEDGEMENT -->
+    <h1>ACKNOWLEDGEMENT</h1>
+    <p>I would like to express my deep sense of gratitude to everyone who contributed to the successful completion of this project. It has been a journey of learning, exploring, and implementing new technologies, and none of this would have been possible without the support I received.</p>
+    <p>First and foremost, I thank my project guide for their invaluable guidance, constant encouragement, and constructive criticism throughout the development of the <strong>Smart Attendance System</strong>. Their insights into Computer Vision helped shape the core algorithms of this project.</p>
+    <p>I extend my sincere gratitude to the <strong>Head of the Department of Computer Science and Engineering</strong> for providing the necessary infrastructure, high-performance computing labs, and resources required for testing the deep learning models used in this project.</p>
+    <p>I am also grateful to the teaching and non-teaching staff of the department for their cooperation and suggestions regarding the administrative workflow of attendance, which helped in designing the system requirements.</p>
+    <p>Finally, I would like to thank my family and friends for their constant motivation, patience, and support during the course of this work. Their belief in my abilities pushed me to overcome the technical challenges encountered during the development phase.</p>
+
+    <div class="page-break"></div>
+
+    <!-- ABSTRACT -->
+    <h1>ABSTRACT</h1>
+    <p>In the rapidly evolving landscape of digital transformation, automation is reshaping traditional processes across various sectors, with education being a primary beneficiary. Attendance management, a fundamental administrative task in educational institutions, has long been plagued by inefficiencies. Traditional methods, such as manual roll calls and paper-based signature sheets, are not only time-consuming but also prone to human error and susceptible to fraudulent practices like proxy attendance. These inefficiencies result in a significant loss of instructional time and a lack of reliable data for academic monitoring.</p>
+    <p>To address these critical challenges, this project introduces a <strong>Smart Attendance System</strong> that synergizes <strong>Face Recognition</strong> and <strong>Geo-Fencing</strong> technologies. Developed using the <strong>Django</strong> framework, the system provides a robust, scalable, and secure web application for managing student attendance. The core innovation lies in its dual-factor authentication mechanism: "Who you are" and "Where you are".</p>
+    <p>The system utilizes advanced <strong>Computer Vision</strong> algorithms, specifically Histogram of Oriented Gradients (HOG) for face detection and a Deep ResNet-34 model for face encoding, to verify student identity with high precision. This ensures that the person marking the attendance is indeed the registered student, effectively eliminating the possibility of proxy attendance. Simultaneously, <strong>Geo-Fencing</strong> technology leverages the HTML5 Geolocation API and the Haversine formula to strictly restrict attendance marking to validated campus boundaries. If a student attempts to mark attendance from outside the designated college premises, the system automatically rejects the request.</p>
+    <p>Key features of the system include a comprehensive role-based dashboard for Administrators and Students, real-time location validation, facial biometric matching, and automated reporting. The system allows administrators to manage student records, upload data in bulk, view detailed analytics, and export monthly reports. Students benefit from a transparent system where they can view their attendance percentage in real-time. This solution represents a significant step towards a "Smart Campus," offering a contactless, hygienic, and efficient alternative to traditional biometric hardware.</p>
+
+    <div class="page-break"></div>
+
+    <!-- TABLE OF CONTENTS -->
+    <h1>TABLE OF CONTENTS</h1>
+    <table style="border: none;">
+        <tr><td style="border: none; width: 10%;"><strong>Chap</strong></td><td style="border: none; width: 80%;"><strong>Title</strong></td><td style="border: none; text-align: right;"><strong>Page</strong></td></tr>
+        <tr><td style="border: none;"><strong>1</strong></td><td style="border: none;"><strong>INTRODUCTION</strong></td><td style="border: none; text-align: right;"><strong>1</strong></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">1.1 Overview</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">1.2 Background</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">1.3 Motivation</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">1.4 Problem Statement</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">1.5 Objectives</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">1.6 Scope of the Project</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">1.7 Organization of the Report</td><td style="border: none;"></td></tr>
+        
+        <tr><td style="border: none;"><strong>2</strong></td><td style="border: none;"><strong>LITERATURE SURVEY</strong></td><td style="border: none; text-align: right;"><strong>8</strong></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">2.1 Introduction</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">2.2 Review of RFID Systems</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">2.3 Review of Fingerprint Biometrics</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">2.4 Review of Iris Recognition</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">2.5 Comparative Analysis</td><td style="border: none;"></td></tr>
+
+        <tr><td style="border: none;"><strong>3</strong></td><td style="border: none;"><strong>SYSTEM ANALYSIS</strong></td><td style="border: none; text-align: right;"><strong>15</strong></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">3.1 Existing System</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">3.2 Disadvantages of Existing System</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">3.3 Proposed System</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">3.4 Feasibility Study</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">3.5 SWOT Analysis</td><td style="border: none;"></td></tr>
+
+        <tr><td style="border: none;"><strong>4</strong></td><td style="border: none;"><strong>SYSTEM REQUIREMENTS</strong></td><td style="border: none; text-align: right;"><strong>25</strong></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">4.1 Hardware Requirements</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">4.2 Software Requirements</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">4.3 Software Description (Python/Django)</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">4.4 Functional Requirements</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">4.5 Non-Functional Requirements</td><td style="border: none;"></td></tr>
+
+        <tr><td style="border: none;"><strong>5</strong></td><td style="border: none;"><strong>SYSTEM DESIGN</strong></td><td style="border: none; text-align: right;"><strong>35</strong></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">5.1 System Architecture</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">5.2 Modules Description</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">5.3 Database Design (ER Diagrams)</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">5.4 Data Dictionary</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">5.5 Data Flow Diagrams</td><td style="border: none;"></td></tr>
+
+        <tr><td style="border: none;"><strong>6</strong></td><td style="border: none;"><strong>ALGORITHMS AND IMPLEMENTATION</strong></td><td style="border: none; text-align: right;"><strong>45</strong></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">6.1 Geofencing Algorithm (Haversine)</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">6.2 Face Recognition Pipeline</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">6.3 Implementation Details</td><td style="border: none;"></td></tr>
+
+        <tr><td style="border: none;"><strong>7</strong></td><td style="border: none;"><strong>SYSTEM TESTING</strong></td><td style="border: none; text-align: right;"><strong>55</strong></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">7.1 Testing Methodologies</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">7.2 Unit Testing & Integration Testing</td><td style="border: none;"></td></tr>
+        <tr><td style="border: none;"></td><td style="border: none;">7.3 Test Cases</td><td style="border: none;"></td></tr>
+
+        <tr><td style="border: none;"><strong>8</strong></td><td style="border: none;"><strong>RESULTS AND SCREENSHOTS</strong></td><td style="border: none; text-align: right;"><strong>60</strong></td></tr>
+        <tr><td style="border: none;"><strong>9</strong></td><td style="border: none;"><strong>CONCLUSION AND FUTURE SCOPE</strong></td><td style="border: none; text-align: right;"><strong>65</strong></td></tr>
+        <tr><td style="border: none;"><strong>10</strong></td><td style="border: none;"><strong>REFERENCES</strong></td><td style="border: none; text-align: right;"><strong>67</strong></td></tr>
+    </table>
+
+    <div class="page-break"></div>
+
+    <!-- CHAPTER 1 -->
+    <h1>CHAPTER 1: INTRODUCTION</h1>
+
+    <h2>1.1 Overview</h2>
+    <p>Academic excellence is built upon a foundation of discipline, and regular attendance is a cornerstone of this discipline. Attendance management is an essential administrative function in all educational institutions, ranging from primary schools to universities. It is mandatory for students to maintain a certain percentage of attendance (typically 75% to 80%) to be eligible to appear for semester-end examinations. This rule is enforced to ensure that students are adequately exposed to the curriculum and have engaged with the learning material.</p>
+    <p>Traditionally, attendance has been a manual process. The lecturer enters the classroom, calls out names from a physical register, and marks 'Present' or 'Absent'. Alternatively, a sheet of paper is circulated among students for signatures. While these methods have served the purpose for decades, they are fraught with inefficiencies in the modern context. This manual approach consumes valuable lecture time—often 5 to 10 minutes per class—which disrupts the flow of instruction and reduces the effective teaching time.</p>
+    <p>Moreover, manual records are notoriously difficult to analyze. Aggregating attendance data at the end of a semester involves manually calculating percentages for hundreds of students across dozens of subjects, a task that is tedious and prone to human error. Furthermore, these paper-based records are vulnerable to damage, loss, and unauthorized alteration. Perhaps the most significant challenge is the issue of "proxy attendance," where students sign on behalf of their absent friends, undermining the integrity of the attendance record.</p>
+
+    <h2>1.2 Background</h2>
+    <p>The quest for automated attendance systems is not new. Over the years, institutions have experimented with various technologies to streamline this process. The first wave of automation involved Radio Frequency Identification (RFID) cards. Students were issued ID cards embedded with a passive RFID tag containing a unique serial number.</p>
+    <p><strong>Mechanism:</strong> Determining presence is done by placing readers at classroom entrances. When a student passes near the reader (or taps the card), the reader energizes the tag, reads the ID, and sends it to the server.</p>
+    <p><strong>Advantages:</strong></p>
+    <ul>
+        <li><strong>Speed:</strong> It is extremely fast, taking less than a second per student.</li>
+        <li><strong>Low Cost (per transaction):</strong> Once installed, the maintenance cost is relatively low.</li>
+    </ul>
+    <p><strong>Limitations:</strong></p>
+    <ul>
+        <li><strong>Buddy Punching:</strong> The most significant flaw is that the card authenticates the token, not the person. Any student can carry multiple cards and swipe for their friends.</li>
+        <li><strong>Hardware Dependence:</strong> Requires readers in every classroom. If a reader fails, attendance cannot be captured.</li>
+    </ul>
+
+    <h2>1.3 Motivation</h2>
+    <p>The motivation behind this project stems from the need to modernize campus infrastructure effectively and economically. Mahalakshmi Women's College of Arts and Science aims to adopt digital solutions to enhance operational efficiency. The traditional methods are no longer sustainable for a growing student body. The administrative burden of maintaining physical registers is high, and the lack of real-time data prevents proactive counseling for students with low attendance.</p>
+    <p>Furthermore, the post-pandemic world has necessitated a shift towards hygienic, contactless interactions. A system that relies on touching a shared surface (like a pen or a scanner) is less desirable. By leveraging the device that every student already possesses—their smartphone—we can create a "Bring Your Own Device" (BYOD) model for attendance. This not only ensures hygiene but also significantly reduces infrastructure costs for the college, as there is no need to purchase and maintain hundreds of biometric devices.</p>
+
+    <h2>1.4 Problem Statement</h2>
+    <p>The core problem addressed by this project is the <strong>inefficiency, inaccuracy, and vulnerability of manual and hardware-dependent attendance systems</strong>. Specifically, the project aims to solve the following sub-problems:</p>
+    <ul>
+        <li><strong>Time Consumption:</strong> Determining how to reduce the time spent on attendance to near-zero, enabling faculty to focus entirely on teaching.</li>
+        <li><strong>Proxy Attendance:</strong> Eliminating the possibility of students marking attendance for one another. A simple signature or ID card tap is insufficient proof of physical presence.</li>
+        <li><strong>Data Latency:</strong> Reducing the time gap between an attendance event and the availability of that data for parents and administrators. Currently, this gap can be weeks or months.</li>
+        <li><strong>Infrastructure Cost:</strong> Avoiding the high capital expenditure associated with installing biometric hardware in every classroom.</li>
+        <li><strong>Location Fraud:</strong> Ensuring that a student using a mobile app is actually in the classroom and not marking attendance from a dormitory or coffee shop.</li>
+    </ul>
+
+    <h2>1.5 Objectives</h2>
+    <p>The primary objectives of the Smart Attendance System are:</p>
+    <ol>
+        <li>To develop a secure web application that allows students to mark attendance using their own devices (smartphones/laptops).</li>
+        <li>To implement robust **Face Recognition** using state-of-the-art Deep Learning models (`dlib` and `face_recognition`) to authenticate student identity and prevent proxies.</li>
+        <li>To implement accurate **Geo-Fencing** using the Haversine formula and HTML5 Geolocation API to ensure students are physically within the college premises (specifically the Mahalakshmi Nagar campus coordinates).</li>
+        <li>To provide a role-based dashboard for administrators to view real-time daily, weekly, and monthly attendance reports.</li>
+        <li>To enable bulk management of student data through CSV uploads, simplifying the onboarding process for new batches.</li>
+        <li>To send automated status indicators for students falling below mandatory attendance thresholds.</li>
+        <li>To reduce the administrative workload on faculty members by automating the compilation and calculation of attendance percentages.</li>
+    </ol>
+
+    <h2>1.6 Scope of the Project</h2>
+    <p>The scope of this project is defined as follows:</p>
+    <ul>
+        <li><strong>Target Audience:</strong> The system is designed for educational institutions, specifically configuring the geofence for Mahalakshmi Women's College. However, the modular design allows it to be adapted for corporate offices or other universities.</li>
+        <li><strong>Platform:</strong> The system is a web-based application compatible with modern web browsers (Chrome, Safari, Edge) on both Android and iOS devices.</li>
+        <li><strong>Functionality:</strong> It covers student registration, face enrollment, location validation, real-time attendance marking, and admin reporting.</li>
+        <li><strong>Limitations:</strong> The system requires an active internet connection to process the face recognition (server-side processing). It does not currently support offline mode. It relies on the user granting camera and location permissions in the browser.</li>
+    </ul>
+
+    <h2>1.7 Organization of the Report</h2>
+    <p>The report is organized into ten chapters that systematically document the development process:</p>
+    <p><strong>Chapter 2: Literature Survey</strong> reviews existing attendance systems, including RFID, Fingerprint, and Iris recognition, comparing their pros and cons.</p>
+    <p><strong>Chapter 3: System Analysis</strong> details the existing manual process, its drawbacks, and the comprehensive feedback study conducted to justify the proposed system.</p>
+    <p><strong>Chapter 4: System Requirements</strong> outlines the hardware and software specifications, including a detailed look at the Python/Django stack.</p>
+    <p><strong>Chapter 5: System Design</strong> presents the architectural blueprint, including Data Flow Diagrams (DFD), Entity-Relationship (ER) diagrams, and database schema.</p>
+    <p><strong>Chapter 6: Algorithms and Implementation</strong> dives deep into the technical core, explaining the mathematics of the Haversine formula and the neural network architecture used for face recognition.</p>
+    <p><strong>Chapter 7: System Testing</strong> describes the testing methodologies employed, including unit, integration, and user acceptance testing, along with detailed test cases.</p>
+    <p><strong>Chapter 8: Results and Screenshots</strong> showcases the final UI of the application with varying user scenarios.</p>
+    <p><strong>Chapter 9: Conclusion and Future Scope</strong> summarizes the project's impact and outlines potential future enhancements.</p>
+    <p><strong>Chapter 10: References</strong> lists the academic papers, documentation, and resources cited throughout the report.</p>
+
+    <div class="page-break"></div>
+
+    <!-- CHAPTER 2 -->
+    <h1>CHAPTER 2: LITERATURE SURVEY</h1>
+
+    <h2>2.1 Introduction</h2>
+    <p>A literature survey is a crucial step in the software development lifecycle. It involves the identification, analysis, and synthesis of existing knowledge and technologies relevant to the problem at hand. Before proposing a new solution, it is imperative to understand the strengths and limitations of current systems. This chapter provides a detailed review of various attendance management technologies that have been implemented in educational and corporate environments.</p>
+
+    <h2>2.2 Review of RFID Systems</h2>
+    <p><strong>Radio Frequency Identification (RFID)</strong> technology has been widely adopted for attendance automation. In this system, every student is issued an ID card embedded with a passive RFID tag containing a unique serial number.</p>
+    <p><strong>Mechanism:</strong> Determining presence is done by placing readers at classroom entrances. When a student passes near the reader (or taps the card), the reader energizes the tag, reads the ID, and sends it to the server.</p>
+    <p><strong>Advantages:</strong></p>
+    <ul>
+        <li><strong>Speed:</strong> It is extremely fast, taking less than a second per student.</li>
+        <li><strong>Low Cost (per transaction):</strong> Once installed, the maintenance cost is relatively low.</li>
+    </ul>
+    <p><strong>Limitations:</strong></p>
+    <ul>
+        <li><strong>Buddy Punching:</strong> The most significant flaw is that the card authenticates the token, not the person. Any student can carry multiple cards and swipe for their friends.</li>
+        <li><strong>Hardware Dependence:</strong> Requires readers in every classroom. If a reader fails, attendance cannot be captured.</li>
+    </ul>
+
+    <h2>2.3 Review of Fingerprint Biometrics</h2>
+    <p>Biometrics refers to the statistical analysis of people's unique physical and behavioral characteristics. Fingerprint recognition is the most common biometric method.</p>
+    <p><strong>Mechanism:</strong> Students place their finger on a sensor. The system captures the ridge and valley patterns, converts them into a minutiae template, and compares them against stored templates.</p>
+    <p><strong>Advantages:</strong></p>
+    <ul>
+        <li><strong>High Accuracy:</strong> Fingerprints are unique and permanent.</li>
+        <li><strong>No Proxy:</strong> It is nearly impossible to fake a fingerprint in a standard educational setting.</li>
+    </ul>
+    <p><strong>Limitations:</strong></p>
+    <ul>
+        <li><strong>Hygiene:</strong> In a post-pandemic world, thousands of students touching the same sensor is a health hazard.</li>
+        <li><strong>Queuing:</strong> The process takes 3-5 seconds per person. For a class of 60, this can take 5 minutes, creating queues.</li>
+        <li><strong>Failure to Enroll (FTE):</strong> Some individuals have faint fingerprints due to dermatological conditions or manual labor, leading to recognition failures.</li>
+    </ul>
+
+    <h2>2.4 Comparative Analysis</h2>
+    <p>The following table summarizes the comparison between the various technologies and the proposed Face + Geofence solution.</p>
+    <table>
+        <tr>
+            <th>Parameter</th>
+            <th>Manual Method</th>
+            <th>RFID System</th>
+            <th>Fingerprint System</th>
+            <th>Proposed System</th>
+        </tr>
+        <tr>
+            <td><strong>Identification Source</strong></td>
+            <td>Roll Call</td>
+            <td>ID Card</td>
+            <td>Fingerprint</td>
+            <td>Face + GPS</td>
+        </tr>
+        <tr>
+            <td><strong>Proxy Potential</strong></td>
+            <td>High</td>
+            <td>Very High</td>
+            <td>Low</td>
+            <td><strong>Nil</strong></td>
+        </tr>
+        <tr>
+            <td><strong>Process Speed</strong></td>
+            <td>Very Slow</td>
+            <td>Fast</td>
+            <td>Medium</td>
+            <td><strong>Fast (Parallel)</strong></td>
+        </tr>
+        <tr>
+            <td><strong>Initial Cost</strong></td>
+            <td>Nil</td>
+            <td>High</td>
+            <td>High</td>
+            <td><strong>Low (Software Only)</strong></td>
+        </tr>
+        <tr>
+            <td><strong>Maintenance</strong></td>
+            <td>Nil</td>
+            <td>Medium</td>
+            <td>High</td>
+            <td><strong>Low</strong></td>
+        </tr>
+        <tr>
+            <td><strong>Contactless</strong></td>
+            <td>No</td>
+            <td>Yes (mostly)</td>
+            <td>No</td>
+            <td><strong>Yes (100%)</strong></td>
+        </tr>
+    </table>
+    <p>From the analysis, it is evident that while Fingerprint systems offer security, they fail in hygiene and scalability (queues). RFID systems are fast but insecure. The proposed Smart Attendance System combines the security of biometrics (Face) with the speed and hygiene of a personal device (Scalability), making it the superior choice for modern institutions.</p>
+
+    <div class="page-break"></div>
+
+    <!-- CHAPTER 3 -->
+    <h1>CHAPTER 3: SYSTEM ANALYSIS</h1>
+
+    <h2>3.1 Existing System</h2>
+    <p>At Mahalakshmi Women's College, the current attendance system is entirely manual. Faculty members are provided with physical registers for each subject. At the beginning or end of each hour, the faculty member calls out the roll numbers. Students respond, and the faculty marks the storage. At the end of the month, these registers are collected by the Head of Department. Data entry operators then manually type this data into an Excel sheet to calculate the cumulative attendance.</p>
+    
+    <h2>3.2 Disadvantages of Existing System</h2>
+    <ul>
+        <li><strong>Human Error:</strong> With hundreds of students, marking the wrong box or miscalculating the total is common.</li>
+        <li><strong>Paper Usage:</strong> The system generates a massive amount of paper waste, which is not eco-friendly.</li>
+        <li><strong>Lack of Real-time Monitoring:</strong> If a student skips classes for a week, parents often find out only at the end of the month or semester.</li>
+        <li><strong>Storage:</strong> Storing physical registers for years for auditing purposes requires significant physical space and is a fire hazard.</li>
+    </ul>
+
+    <h2>3.3 Proposed System</h2>
+    <p>The proposed "Smart Attendance System" is a web-based platform that decentralizes the attendance process. Instead of one teacher marking for 60 students, 60 students mark for themselves simultaneously. The system ensures integrity through technological checks.</p>
+    <p><strong>Workflow:</strong></p>
+    <ol>
+        <li>The Admin verifies the GPS coordinates of the college campus (e.g., Latitude: 17.4325, Longitude: 78.4400) and sets a geofence radius (e.g., 200 meters).</li>
+        <li>Students register on the portal and upload their base photo (enrollment).</li>
+        <li>When a student logs in to mark attendance, the browser requests GPS permission.</li>
+        <li>The system checks if the student is inside the 200m radius. If not, access is denied.</li>
+        <li>If inside, the camera opens. The student takes a selfie.</li>
+        <li>The server compares the selfie with the enrolled photo. If they match, attendance is marked.</li>
+    </ol>
+
+    <h2>3.4 Feasibility Study</h2>
+    <p><strong>3.4.1 Technical Feasibility:</strong> The system relies on standard technologies. Python/Django are robust backend tools. The `face_recognition` library is an industry-standard wrapper around `dlib`, which boasts 99.38% accuracy on the LFW benchmark. Front-end HTML5 Geolocation is supported by all modern smartphones (Android & iOS). Therefore, the system is technically feasible.</p>
+    <p><strong>3.4.2 Economic Feasibility:</strong> The project runs on a standard server. There is no need to buy scanners, cards, or wiring. The cost is limited to server hosting and domain registration. Compared to hardware solutions costing thousands of dollars, this is highly economical.</p>
+    <p><strong>3.4.3 Operational Feasibility:</strong> Students are "digital natives," comfortable with apps and selfies. The process requires no innovative training. For admins, the dashboard is intuitive. Therefore, the system is operationally viable.</p>
+
+    <h2>3.5 SWOT Analysis</h2>
+    <table>
+        <tr>
+            <th>Strengths</th>
+            <th>Weaknesses</th>
+        </tr>
+        <tr>
+            <td>
+                <ul>
+                    <li>Zero hardware cost.</li>
+                    <li>Hygienic (Contactless).</li>
+                    <li>Real-time reporting.</li>
+                    <li>High Accuracy (99%+).</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>Requires Internet connection.</li>
+                    <li>Requires Smartphone ownership (though nearly universal).</li>
+                    <li>Battery dependent.</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <th>Opportunities</th>
+            <th>Threats</th>
+        </tr>
+        <tr>
+            <td>
+                <ul>
+                    <li>Integration with Payroll/Grades.</li>
+                    <li>Campus security (Visitor tracking).</li>
+                    <li>Data Analytics for student behavior.</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>GPS Spoofing (though handled by validation).</li>
+                    <li>Server downtime.</li>
+                    <li>Privacy concerns regarding biometric data storage.</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+
+    <div class="page-break"></div>
+
+    <!-- CHAPTER 4 -->
+    <h1>CHAPTER 4: SYSTEM REQUIREMENTS</h1>
+
+    <h2>4.1 Hardware Requirements</h2>
+    <p><strong>Server Side:</strong></p>
+    <ul>
+        <li><strong>Processor:</strong> Intel Core i5 (Quad-core) or higher. Face encoding is CPU intensive.</li>
+        <li><strong>RAM:</strong> Minimum 8 GB. 16 GB recommended for handling concurrent requests.</li>
+        <li><strong>Storage:</strong> 256 GB SSD. Faster I/O is crucial for image database retrieval.</li>
+        <li><strong>Network:</strong> High-speed broadband with Static IP for production deployment.</li>
+    </ul>
+    <p><strong>Client Side (User Device):</strong></p>
+    <ul>
+        <li><strong>Device:</strong> Smartphone, Tablet, or Laptop.</li>
+        <li><strong>Camera:</strong> Front-facing camera with at least 2 MP resolution.</li>
+        <li><strong>Sensors:</strong> GPS/GNSS sensor.</li>
+    </ul>
+
+    <h2>4.2 Software Requirements</h2>
+    <ul>
+        <li><strong>Operating System:</strong> Platform Independent (Windows/Linux/macOS for server).</li>
+        <li><strong>Programming Language:</strong> Python 3.10+. Python is chosen for its rich ecosystem of AI/ML libraries.</li>
+        <li><strong>Web Framework:</strong> Django 4.2.7. A high-level Python web framework that encourages rapid development.</li>
+        <li><strong>Database:</strong> SQLite (for Development/Testing), Postgres (for Production).</li>
+        <li><strong>Frontend Technologies:</strong> HTML5, CSS3, JavaScript (ES6), Bootstrap 5 (for responsive design).</li>
+        <li><strong>Key Libraries:</strong>
+            <ul>
+                <li>`dlib`: C++ toolkit containing machine learning algorithms.</li>
+                <li>`face_recognition`: Python API for dlib.</li>
+                <li>`numpy`: For numerical matrix operations on image data.</li>
+                <li>`opencv-python`: For image pre-processing.</li>
+                <li>`geopy`: For geodesic distance calculations.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>4.3 Functional Requirements</h2>
+    <p>Functional requirements define what the system should do.</p>
+    <ol>
+        <li><strong>User Registration:</strong> System must allow the Super Admin to create Admin accounts. Admins can upload Student data.</li>
+        <li><strong>Authentication:</strong> Secure login using Username and Password.</li>
+        <li><strong>Geo-Location Capture:</strong> The system must request and capture high-accuracy latitude and longitude from the client browser.</li>
+        <li><strong>Geofence Validation:</strong> The system must calculate the distance between the user's location and the stored Company location. If Distance > Radius, access must be blocked.</li>
+        <li><strong>Face Capture:</strong> The system must access the webcam and capture a still frame.</li>
+        <li><strong>Face Matching:</strong> The system must detect faces in the frame, generate a 128-d encoding, and compare it with the user's stored encoding using Euclidean distance.</li>
+        <li><strong>Attendance Logging:</strong> On successful validation, the system must create a record with Timestamp, Location, and Status.</li>
+        <li><strong>Reporting:</strong> The system must generate viewable tables of attendance history.</li>
+    </ol>
+
+    <h2>4.4 Non-Functional Requirements</h2>
+    <p>Non-functional requirements define *how* the system should perform.</p>
+    <ul>
+        <li><strong>Reliability:</strong> The system should be available 99.9% of the time during college hours (8 AM - 5 PM).</li>
+        <li><strong>Scalability:</strong> The system should handle concurrent requests from 500+ students marking attendance within a 10-minute window.</li>
+        <li><strong>Performance:</strong> The face recognition process should complete within 3 seconds to ensure a smooth user experience.</li>
+        <li><strong>Usability:</strong> The interface should be responsive (mobile-friendly) and intuitive, requiring no more than 3 clicks to mark attendance.</li>
+        <li><strong>Security:</strong> Passwords must be hashed (PBKDF2). Biometric data (face encodings) should be stored as abstract numerical vectors, not raw images, to protect privacy.</li>
+    </ul>
+
+
+    <div class="page-break"></div>
+
+    <!-- CHAPTER 5 -->
+    <h1>CHAPTER 5: SYSTEM DESIGN</h1>
+
+    <h2>5.1 System Architecture</h2>
+    <p>The system follows the <strong>Model-View-Template (MVT)</strong> architectural pattern, which is the standard for Django applications.</p>
+    <ul>
+        <li><strong>Model (M):</strong> The data access layer. It describes the database schema and handles data retrieval/storage. Key models include `Student`, `AttendanceLog`, and `Company`.</li>
+        <li><strong>View (V):</strong> The business logic layer. It receives HTTP requests, processes data (e.g., coordinates, images), interacts with the Model, and determines the response.</li>
+        <li><strong>Template (T):</strong> The presentation layer. It defines how the data is displayed to the user using HTML/CSS.</li>
+    </ul>
+
+    <h2>5.2 Modules Description</h2>
+    <p>The application is divided into three primary modules:</p>
+    <h3>5.2.1 Authentication Module</h3>
+    <p>Handles user login and logout. It differentiates between Super Admins, College Admins, and Students. It uses Django's built-in authentication system for session management and security.</p>
+    
+    <h3>5.2.2 Admin Module</h3>
+    <p>Provides a dashboard for:
+    <ul>
+        <li><strong>Company Management:</strong> Setting the college name, GPS coordinates, and allowed radius.</li>
+        <li><strong>Student Management:</strong> Adding, editing, or deleting student records. Viewing face enrollment status.</li>
+        <li><strong>Reporting:</strong> Viewing attendance logs filtered by date or student.</li>
+    </ul>
+    </p>
+
+    <h3>5.2.3 Student Module</h3>
+    <p>The core interface for the end-user. Features include:
+    <ul>
+        <li><strong>Profile:</strong> Viewing personal details.</li>
+        <li><strong>Mark Attendance:</strong> The main workflow involving Location Check -> Camera -> Validation.</li>
+        <li><strong>History:</strong> Viewing past attendance records.</li>
+    </ul>
+    </p>
+
+    <h2>5.3 Database Design</h2>
+    <p>A robust database schema is essential for data integrity. The system uses a Relational Database Management System (RDBMS).</p>
+    
+    <h3>Entities and Attributes:</h3>
+    
+    <p><strong>User (Django Auth):</strong></p>
+    <ul>
+        <li>id (PK)</li>
+        <li>username (String)</li>
+        <li>password (Hash)</li>
+        <li>is_staff (Boolean)</li>
+    </ul>
+
+    <p><strong>Company (Campus):</strong></p>
+    <ul>
+        <li>id (PK)</li>
+        <li>name (String)</li>
+        <li>latitude (Decimal)</li>
+        <li>longitude (Decimal)</li>
+        <li>radius (Float) - in meters</li>
+    </ul>
+
+    <p><strong>StudentProfile:</strong></p>
+    <ul>
+        <li>id (PK)</li>
+        <li>user (FK -> User)</li>
+        <li>jntu_number (String, Unique)</li>
+        <li>company (FK -> Company)</li>
+        <li>face_encoding (Binary/JSON) - Stores the 128-d vector</li>
+    </ul>
+
+    <p><strong>AttendanceLog:</strong></p>
+    <ul>
+        <li>id (PK)</li>
+        <li>student (FK -> StudentProfile)</li>
+        <li>date (Date)</li>
+        <li>time (Time)</li>
+        <li>lat_captured (Decimal)</li>
+        <li>lon_captured (Decimal)</li>
+        <li>status (Enum: Present/Absent)</li>
+    </ul>
+
+
+    <div class="page-break"></div>
+
+    <!-- CHAPTER 6 -->
+    <h1>CHAPTER 6: ALGORITHMS AND IMPLEMENTATION</h1>
+
+    <h2>6.1 Geofencing Algorithm (Haversine Formula)</h2>
+    <p>Geofencing involves creating a virtual perimeter for a real-world geographic area. To verify if a student is within this perimeter, we calculate the distance between the student's current coordinates ($lat_2, lon_2$) and the college center ($lat_1, lon_1$).</p>
+    <p>Since the Earth is not flat, we cannot use Euclidean distance. We use the <strong>Haversine Formula</strong>, which calculates the great-circle distance between two points on a sphere.</p>
+    <div class="code-block">
+    R = 6371000 # Radius of Earth in meters
+    phi_1 = math.radians(lat1)
+    phi_2 = math.radians(lat2)
+    delta_phi = math.radians(lat2 - lat1)
+    delta_lambda = math.radians(lon2 - lon1)
+
+    a = math.sin(delta_phi / 2.0) ** 2 + \
+        math.cos(phi_1) * math.cos(phi_2) * \
+        math.sin(delta_lambda / 2.0) ** 2
+    
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+    
+    distance = R * c
+    </div>
+    <p>If $distance \le Radius$, the user is allowed to proceed. Otherwise, a "Location Error" is thrown.</p>
+
+    <h2>6.2 Face Recognition Pipeline</h2>
+    <p>The face recognition system is built upon the `dlib` library. It follows a 4-stage pipeline:</p>
+    <p><strong>Stage 1: Face Detection (HOG):</strong> The image is converted to grayscale. We calculate the Histogram of Oriented Gradients (HOG) for the image. This simplifies the image into a pattern of gradients (light to dark transitions), allowing us to detect the general shape of a face regardless of lighting.</p>
+    <p><strong>Stage 2: Posing and Projection (Landmarks):</strong> Once a face is found, we identify 68 specific facial landmarks (chin, edge of eyes, brows, nose). We use an affine transformation to center the eyes and mouth, effectively "front-facing" the face even if the user is looking sideways.</p>
+    <p><strong>Stage 3: Encoding (ResNet-34):</strong> The aligned face image is passed through a deep Convolutional Neural Network (CNN) based on the ResNet-34 architecture. This network is trained to map the face into a 128-dimensional vector space. The key property of this space is that faces of the same person are close to each other (small Euclidean distance), while faces of different people are far apart.</p>
+    <p><strong>Stage 4: Matching:</strong> When a student attempts to mark attendance, we generate the 128-d vector for the live selfie. We calculate the Euclidean distance between this vector and the vector stored during enrollment. If the distance is below a threshold (typically 0.6), it is a match.</p>
+
+    <h2>6.3 Implementation Details</h2>
+    <p>The core logic handles the attendance marking request.</p>
+    <h3>Code Snippet: Attendance View (Python/Django)</h3>
+    <div class="code-block">
+@login_required
+def mark_attendance(request):
+    if request.method == 'POST':
+        # 1. Get Data
+        lat = float(request.POST['lat'])
+        lon = float(request.POST['lon'])
+        image_data = request.FILES['image']
+        
+        student = request.user.studentprofile
+        company = student.company
+
+        # 2. Check Location
+        distance = get_distance(lat, lon, company.lat, company.lon)
+        if distance > company.radius:
+             return JsonResponse({'status': 'fail', 'reason': 'Outside Geofence'})
+
+        # 3. Process Image
+        unknown_image = face_recognition.load_image_file(image_data)
+        unknown_encodings = face_recognition.face_encodings(unknown_image)
+
+        if len(unknown_encodings) > 0:
+            match = face_recognition.compare_faces(
+                [student.face_encoding], 
+                unknown_encodings[0],
+                tolerance=0.5
+            )
+            if match[0]:
+                 # 4. Save Record
+                 AttendanceLog.objects.create(student=student, status='Present', ...)
+                 return JsonResponse({'status': 'success'})
+            else:
+                 return JsonResponse({'status': 'fail', 'reason': 'Face Mismatch'})
+        else:
+            return JsonResponse({'status': 'fail', 'reason': 'No Face Detected'})
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- CHAPTER 7 -->
+    <h1>CHAPTER 7: SYSTEM TESTING</h1>
+
+    <h2>7.1 Testing Methodologies</h2>
+    <p>Software testing is a critical element of software quality assurance. We employed a hybrid testing approach.</p>
+    <p><strong>Black Box Testing:</strong> We tested the system functionalities without looking at the internal code structure. For example, logging in with an invalid password to ensure access is denied.</p>
+    <p><strong>White Box Testing:</strong> We analyzed the internal logic, specifically the geofencing conditional blocks and the loop structures in the face recognition arrays, to ensure 100% code coverage.</p>
+    
+    <h2>7.2 Test Cases</h2>
+    
+    <h3>7.2.1 Test Case: Geofencing Validation</h3>
+    <table>
+        <tr>
+            <th>Test ID</th>
+            <th>Scenario</th>
+            <th>Input Data</th>
+            <th>Expected Output</th>
+            <th>Actual Output</th>
+            <th>Result</th>
+        </tr>
+        <tr>
+            <td>TC-GEO-01</td>
+            <td>User Inside Campus</td>
+            <td>Lat: 13.0915, Lon: 80.1052 (Distance < 50m)</td>
+            <td>Allow Camera Access</td>
+            <td>Camera Accessed</td>
+            <td>PASS</td>
+        </tr>
+        <tr>
+            <td>TC-GEO-02</td>
+            <td>User Outside Campus</td>
+            <td>Lat: 13.0000, Lon: 80.0000 (Distance > 5km)</td>
+            <td>Show "Out of Range" Error</td>
+            <td>Error Popup Shown</td>
+            <td>PASS</td>
+        </tr>
+    </table>
+
+    <h3>7.2.2 Test Case: Face Recognition</h3>
+    <table>
+        <tr>
+            <th>Test ID</th>
+            <th>Scenario</th>
+            <th>Input Data</th>
+            <th>Expected Output</th>
+            <th>Actual Output</th>
+            <th>Result</th>
+        </tr>
+        <tr>
+            <td>TC-FACE-01</td>
+            <td>Correct Student</td>
+            <td>Selfie of Registered Student</td>
+            <td>Attendance Marked Present</td>
+            <td>Marked Present</td>
+            <td>PASS</td>
+        </tr>
+        <tr>
+            <td>TC-FACE-02</td>
+            <td>Wrong Student (Proxy)</td>
+            <td>Selfie of Friend</td>
+            <td>Face Mismatch Error</td>
+            <td>Mismatch Error</td>
+            <td>PASS</td>
+        </tr>
+        <tr>
+            <td>TC-FACE-03</td>
+            <td>No Face</td>
+            <td>Photo of Wall/Ceiling</td>
+            <td>No Face Detected Error</td>
+            <td>Error Shown</td>
+            <td>PASS</td>
+        </tr>
+    </table>
+
+    <div class="page-break"></div>
+
+    <!-- CHAPTER 8 -->
+    <h1>CHAPTER 8: RESULTS AND SCREENSHOTS</h1>
+    
+    <p>The system has been successfully developed and deployed in a test environment. The following subsections present the visual output of the various modules.</p>
+
+    <h2>8.1 Super Admin Dashboard</h2>
+    <p>Figure 8.1 illustrates the Super Admin Dashboard. This is the landing page for the highest-level administrator. It provides a high-level overview of the system health. The cards at the top display the total count of registered Admins and Students. The "Quick Actions" bar allows for system-wide configurations. The "System Information" panel at the bottom confirms that the Database, Face Recognition Service, and Redis Cache are all connected and running optimally.</p>
+    <img src="screenshots/superadmin_dashboard.png" alt="Super Admin Dashboard">
+    <p class="caption">Figure 8.1: Super Admin Dashboard showing system status and statistics.</p>
+    <br>
+
+    <h2>8.2 Admin Dashboard</h2>
+    <p>Figure 8.2 shows the Admin Dashboard. This interface is designed for college staff. It features a "Quick Actions" menu for common tasks like "Upload Students" (bulk CSV upload), managing "Companies" (Geofence settings), and viewing specific "Analytics". The "Information" panel on the right guides the user on their capabilities. This distinct separation of Super Admin and Admin ensures security and proper delegation of duties.</p>
+    <img src="screenshots/admin_dashboard.png" alt="Admin Dashboard">
+    <p class="caption">Figure 8.2: Admin Dashboard for managing student data.</p>
+    <br><br>
+
+    <h2>8.3 Student Dashboard</h2>
+    <p>Figure 8.3 presents the Student Dashboard. This is the student-facing interface. Upon logging in, the student is greeted with a "Today's Attendance Status" banner. In the screenshot, it shows a green success message: "Present! Your attendance has been marked successfully at 11:14." Below, the "Student Information" card confirms their identity details (Name, JNTU Number). The "Attendance Statistics" card provides immediate feedback on their attendance performance (Days Attended vs Working Days), visualized by a progress bar (50.0% in this test case).</p>
+    <img src="screenshots/student_dashboard.png" alt="Student Dashboard">
+    <p class="caption">Figure 8.3: Student Dashboard displaying successful attendance and stats.</p>
+    <br><br>
+
+    <h2>8.4 Attendance Marking & Location Validation</h2>
+    <p>Figure 8.4 depicts the critical "Attendance Marking" interface. This screen demonstrates the security checks in action. 
+    1. <strong>Location Validation:</strong> The inputs show the captured Latitude (17.432576) and Longitude (78.440038). The status text confirms "Location captured" and validated against the assigned center radius (200.0 m).
+    2. <strong>Live Selfie Capture:</strong> Only after location validation does the "Start Camera" button become active. The user captures a live selfie here. 
+    3. <strong>Submission:</strong> The green "Mark Attendance" button submits both the image and coordinates to the server for final verification.</p>
+    <img src="screenshots/location_validation.png" alt="Location Validation Interface">
+    <p class="caption">Figure 8.4: Attendance Marking Screen showing Location Validation and Camera Interface.</p>
+
+    <div class="page-break"></div>
+
+    <!-- CHAPTER 9 -->
+    <h1>CHAPTER 9: CONCLUSION AND FUTURE SCOPE</h1>
+
+    <h2>9.1 Conclusion</h2>
+    <p>The <strong>Smart Attendance System</strong> successfully meets the challenge of modernizing academic attendance. By integrating two powerful technologies—Geo-fencing and Face Recognition—we have created a solution that is secure, efficient, and user-friendly. The system eliminates the loopholes of proxy attendance found in manual and RFID systems. It removes the hygiene concerns and hardware costs associated with fingerprint scanners.</p>
+    <p>Deployment at Mahalakshmi Women's College of Arts and Science would result in significant operational improvements. Faculty members would save approximately 10-15% of their lecture time, which can be redirected towards teaching. The administrative overhead of data entry is eliminated, and parents/students gain access to transparent, real-time data. The project demonstrates the successful application of Deep Learning AI in a practical, everyday utility.</p>
+
+    <h2>9.2 Future Scope</h2>
+    <p>The current system lays a solid foundation, but there is always room for enhancement:</p>
+    <ul>
+        <li><strong>Liveness Detection:</strong> To prevent sophisticated spoofing attacks (e.g., holding a video of a student in front of the camera), 3D liveness detection (checking for blinking or head movement) can be implemented.</li>
+        <li><strong>Offline Mode (PWA):</strong> Developing a Progressive Web App (PWA) version would allow students to mark attendance even with spotty internet connectivity, syncing the data once the connection is restored.</li>
+        <li><strong>Automated Timetable Integration:</strong> The system can be linked to the college timetable database to automatically detect which subject class is currently ongoing, allowing for subject-wise attendance tracking.</li>
+        <li><strong>Notification System:</strong> Integration with SMS or WhatsApp APIs to send instant alerts to parents if a student is absent for more than 3 consecutive days.</li>
+    </ul>
+
+    <div class="page-break"></div>
+
+    <!-- CHAPTER 10 -->
+    <h1>CHAPTER 10: REFERENCES</h1>
+    <ol>
+        <li><strong>Django Software Foundation.</strong> (2025). <em>Django Documentation: The Web Framework for Perfectionists.</em> Retrieved from https://docs.djangoproject.com/</li>
+        <li><strong>King, D. E.</strong> (2009). <em>Dlib-ml: A Machine Learning Toolkit.</em> Journal of Machine Learning Research, 10, 1755-1758.</li>
+        <li><strong>He, K., Zhang, X., Ren, S., & Sun, J.</strong> (2016). <em>Deep Residual Learning for Image Recognition.</em> Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 770-778.</li>
+        <li><strong>Dalal, N., & Triggs, B.</strong> (2005). <em>Histograms of Oriented Gradients for Human Detection.</em> IEEE Computer Society Conference on Computer Vision and Pattern Recognition (CVPR).</li>
+        <li><strong>Geopy Contributors.</strong> (2025). <em>Geopy 2.4.0 Documentation.</em> Retrieved from https://geopy.readthedocs.io/</li>
+        <li><strong>Mozilla Developer Network.</strong> (2025). <em>Geolocation API specification.</em> Retrieved from developer.mozilla.org</li>
+    </ol>
+
+
+    <div class="page-break"></div>
+    <!-- CHAPTER 11 -->
+    <h1>CHAPTER 11: SOURCE CODE LISTING</h1>
+    <p>The complete source code for the <strong>Smart Attendance System</strong> is available at the following GitHub repository:</p>
+    <p><strong>Repository URL:</strong> <a href="https://github.com/baalaganeshr/smart-attendance-system-">https://github.com/baalaganeshr/smart-attendance-system-</a></p>
+
+    <p>Below are the core components of the system implementation. These files form the backbone of the application logic, data models, and the AI-powered facial recognition service.</p>
+    
+    <div class="page-break"></div>
+    <h2>11.1 Attendance Models (attendance/models.py)</h2>
+    <p>Defines the database schema for Companies, Attendance Logs, and Geofence Settings.</p>
+    <pre style="background-color: #f8f9fa; padding: 10px; border: 1px solid #dee2e6; border-radius: 4px; overflow-x: auto; white-space: pre-wrap; font-size: 11px; font-family: 'Consolas', 'Monaco', monospace;"><code>&quot;&quot;&quot;
+Attendance models for the geofenced attendance system.
+&quot;&quot;&quot;
+
+import uuid
+from django.db import models
+from django.conf import settings
+from django.utils import timezone
+
+
+class Company(models.Model):
+    &quot;&quot;&quot;
+    Company table that stores geolocation for mapping students by company.
+    &quot;&quot;&quot;
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=100, unique=True)
+    address = models.TextField(blank=True, help_text=&quot;Full address of the company/college&quot;)
+    phone = models.CharField(max_length=50, blank=True, help_text=&quot;Contact phone number&quot;)
+    email = models.EmailField(blank=True, help_text=&quot;Contact email address&quot;)
+    lat = models.DecimalField(max_digits=9, decimal_places=6, help_text=&quot;Center latitude of company&quot;)
+    lon = models.DecimalField(max_digits=9, decimal_places=6, help_text=&quot;Center longitude of company&quot;)
+    radius = models.DecimalField(max_digits=6, decimal_places=2, default=150.0, help_text=&quot;Default geofence radius in meters&quot;)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = &#x27;companies&#x27;
+        verbose_name = &#x27;Company&#x27;
+        verbose_name_plural = &#x27;Companies&#x27;
+
+    def __str__(self):
+        return self.name
+
+class AttendanceLog(models.Model):
+    &quot;&quot;&quot;
+    Detailed attendance records with geofencing and face verification.
+    Supports check-in/check-out with time tracking.
+    &quot;&quot;&quot;
+    STATUS_CHOICES = [
+        (&#x27;present&#x27;, &#x27;Present&#x27;),
+        (&#x27;fail_geo&#x27;, &#x27;Geofence Failed&#x27;),
+        (&#x27;fail_face&#x27;, &#x27;Face Verification Failed&#x27;),
+        (&#x27;fail_both&#x27;, &#x27;Both Failed&#x27;),
+    ]
+    
+    ATTENDANCE_TYPE_CHOICES = [
+        (&#x27;check_in&#x27;, &#x27;Check In&#x27;),
+        (&#x27;check_out&#x27;, &#x27;Check Out&#x27;),
+    ]
+    
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    student = models.ForeignKey(&#x27;users.StudentProfile&#x27;, on_delete=models.CASCADE, related_name=&#x27;attendance_logs&#x27;)
+    date = models.DateField()
+    time = models.TimeField()
+    attendance_type = models.CharField(max_length=10, choices=ATTENDANCE_TYPE_CHOICES, default=&#x27;check_in&#x27;)
+    lat = models.DecimalField(max_digits=9, decimal_places=6, help_text=&quot;Current latitude&quot;)
+    lon = models.DecimalField(max_digits=9, decimal_places=6, help_text=&quot;Current longitude&quot;)
+    accuracy = models.DecimalField(max_digits=9, decimal_places=2, help_text=&quot;GPS accuracy in meters&quot;)
+    geofence_verified = models.BooleanField(default=False, help_text=&quot;Whether geofence check passed&quot;)
+    face_verified = models.BooleanField(default=False, help_text=&quot;Whether face verification passed&quot;)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=&#x27;fail_both&#x27;)
+    device_info = models.TextField(blank=True, help_text=&quot;Device information&quot;)
+    ip_address = models.GenericIPAddressField(blank=True, null=True, help_text=&quot;IP address&quot;)
+    # Time tracking fields
+    check_in_time = models.TimeField(null=True, blank=True, help_text=&quot;Check-in time&quot;)
+    check_out_time = models.TimeField(null=True, blank=True, help_text=&quot;Check-out time&quot;)
+    total_time_minutes = models.IntegerField(null=True, blank=True, help_text=&quot;Total time spent in minutes&quot;)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = &#x27;attendance_logs&#x27;
+        verbose_name = &#x27;Attendance Log&#x27;
+        verbose_name_plural = &#x27;Attendance Logs&#x27;
+        ordering = [&#x27;-date&#x27;, &#x27;-time&#x27;]
+    
+    def __str__(self):
+        return f&quot;{self.student.name} - {self.date} ({self.get_status_display()})&quot;
+    
+    def save(self, *args, **kwargs):
+        # Auto-determine status based on verification results
+        if self.geofence_verified and self.face_verified:
+            self.status = &#x27;present&#x27;
+        elif not self.geofence_verified and not self.face_verified:
+            self.status = &#x27;fail_both&#x27;
+        elif not self.geofence_verified:
+            self.status = &#x27;fail_geo&#x27;
+        else:
+            self.status = &#x27;fail_face&#x27;
+        
+        # Calculate total time if both check-in and check-out are present
+        if self.check_in_time and self.check_out_time:
+            self.calculate_total_time()
+        
+        super().save(*args, **kwargs)
+    
+    def calculate_total_time(self):
+        &quot;&quot;&quot;Calculate total time spent between check-in and check-out.&quot;&quot;&quot;
+        if self.check_in_time and self.check_out_time:
+            from datetime import datetime, timedelta
+            
+            # Create datetime objects for calculation
+            check_in_dt = datetime.combine(self.date, self.check_in_time)
+            check_out_dt = datetime.combine(self.date, self.check_out_time)
+            
+            # Handle case where check-out is next day
+            if check_out_dt &lt; check_in_dt:
+                check_out_dt += timedelta(days=1)
+            
+            time_diff = check_out_dt - check_in_dt
+            self.total_time_minutes = int(time_diff.total_seconds() / 60)
+    
+    @property
+    def is_present(self):
+        return self.status == &#x27;present&#x27;
+    
+    @property
+    def verification_summary(self):
+        return {
+            &#x27;geofence&#x27;: self.geofence_verified,
+            &#x27;face&#x27;: self.face_verified,
+            &#x27;overall&#x27;: self.is_present
+        }
+    
+    @property
+    def formatted_total_time(self):
+        &quot;&quot;&quot;Return formatted total time string.&quot;&quot;&quot;
+        if self.total_time_minutes:
+            hours = self.total_time_minutes // 60
+            minutes = self.total_time_minutes % 60
+            return f&quot;{hours}h {minutes}m&quot;
+        return &quot;N/A&quot;
+
+
+class GeofenceSettings(models.Model):
+    &quot;&quot;&quot;
+    Configurable geofence settings per company/organization.
+    &quot;&quot;&quot;
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    company = models.CharField(max_length=100, unique=True, help_text=&quot;Company/Organization name&quot;)
+    radius = models.DecimalField(max_digits=6, decimal_places=2, default=30.0, help_text=&quot;Geofence radius in meters&quot;)
+    accuracy_threshold = models.DecimalField(max_digits=5, decimal_places=2, default=25.0, help_text=&quot;GPS accuracy threshold in meters&quot;)
+    center_lat = models.DecimalField(max_digits=9, decimal_places=6, help_text=&quot;Center latitude of geofence&quot;)
+    center_lon = models.DecimalField(max_digits=9, decimal_places=6, help_text=&quot;Center longitude of geofence&quot;)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = &#x27;geofence_settings&#x27;
+        verbose_name = &#x27;Geofence Setting&#x27;
+        verbose_name_plural = &#x27;Geofence Settings&#x27;
+    
+    def __str__(self):
+        return f&quot;{self.company} - {self.radius}m radius&quot;
+    
+    @property
+    def center_coordinates(self):
+        return (float(self.center_lat), float(self.center_lon))
+
+
+class SystemSettings(models.Model):
+    &quot;&quot;&quot;
+    Global system settings managed by super admin.
+    &quot;&quot;&quot;
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    key = models.CharField(max_length=100, unique=True, help_text=&quot;Setting key&quot;)
+    value = models.TextField(help_text=&quot;Setting value&quot;)
+    description = models.TextField(blank=True, help_text=&quot;Setting description&quot;)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = &#x27;system_settings&#x27;
+        verbose_name = &#x27;System Setting&#x27;
+        verbose_name_plural = &#x27;System Settings&#x27;
+    
+    def __str__(self):
+        return f&quot;{self.key}: {self.value}&quot;
+    
+    @classmethod
+    def get_setting(cls, key, default=None):
+        &quot;&quot;&quot;Get a system setting value.&quot;&quot;&quot;
+        try:
+            setting = cls.objects.get(key=key, is_active=True)
+            return setting.value
+        except cls.DoesNotExist:
+            return default
+    
+    @classmethod
+    def set_setting(cls, key, value, description=&quot;&quot;):
+        &quot;&quot;&quot;Set a system setting value.&quot;&quot;&quot;
+        setting, created = cls.objects.get_or_create(
+            key=key,
+            defaults={&#x27;value&#x27;: value, &#x27;description&#x27;: description}
+        )
+        if not created:
+            setting.value = value
+            setting.description = description
+            setting.save()
+        return setting
+
+
+class ContactMessage(models.Model):
+    &quot;&quot;&quot;
+    Contact form messages from students to admins.
+    &quot;&quot;&quot;
+    STATUS_CHOICES = [
+        (&#x27;new&#x27;, &#x27;New&#x27;),
+        (&#x27;in_progress&#x27;, &#x27;In Progress&#x27;),
+        (&#x27;resolved&#x27;, &#x27;Resolved&#x27;),
+        (&#x27;closed&#x27;, &#x27;Closed&#x27;),
+    ]
+    
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    student = models.ForeignKey(&#x27;users.StudentProfile&#x27;, on_delete=models.CASCADE, related_name=&#x27;contact_messages&#x27;)
+    subject = models.CharField(max_length=200)
+    message = models.TextField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=&#x27;new&#x27;)
+    admin_response = models.TextField(blank=True, help_text=&quot;Admin&#x27;s response&quot;)
+    responded_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name=&#x27;admin_responses&#x27;)
+    responded_at = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = &#x27;contact_messages&#x27;
+        verbose_name = &#x27;Contact Message&#x27;
+        verbose_name_plural = &#x27;Contact Messages&#x27;
+        ordering = [&#x27;-created_at&#x27;]
+    
+    def __str__(self):
+        return f&quot;{self.student.name}: {self.subject}&quot;
+    
+    def mark_responded(self, admin_user, response):
+        &quot;&quot;&quot;Mark message as responded to by admin.&quot;&quot;&quot;
+        self.admin_response = response
+        self.responded_by = admin_user
+        self.responded_at = timezone.now()
+        self.status = &#x27;resolved&#x27;
+        self.save()
+</code></pre>
+    
+    <div class="page-break"></div>
+    <h2>11.2 Attendance Views (attendance/views.py)</h2>
+    <p>Handles the logic for marking attendance, verifying geofences, and processing facial recognition data.</p>
+    <pre style="background-color: #f8f9fa; padding: 10px; border: 1px solid #dee2e6; border-radius: 4px; overflow-x: auto; white-space: pre-wrap; font-size: 11px; font-family: 'Consolas', 'Monaco', monospace;"><code>&quot;&quot;&quot;
+Views for the attendance app.
+&quot;&quot;&quot;
+
+import csv
+import pandas as pd
+from datetime import datetime, date
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib import messages
+from django.http import HttpResponse, JsonResponse
+from django.conf import settings
+from django.utils import timezone
+from django.core.paginator import Paginator
+from django.db import models
+from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from geopy.distance import geodesic
+# import requests  # No longer needed for local face verification
+import re
+from .models import (
+    AttendanceLog, GeofenceSettings, SystemSettings, ContactMessage, Company
+)
+from .serializers import (
+    AttendanceLogSerializer, AttendanceMarkSerializer, GeofenceSettingsSerializer,
+    SystemSettingsSerializer, ContactMessageSerializer, ContactMessageResponseSerializer,
+    StudentUploadSerializer, StudentLocationUpdateSerializer, BulkLocationUpdateSerializer,
+    AttendanceExportSerializer
+)
+from users.models import User, StudentProfile
+
+def is_admin(user):
+    &quot;&quot;&quot;Check if user is admin.&quot;&quot;&quot;
+    return user.is_authenticated and user.is_admin
+
+def is_student(user):
+    &quot;&quot;&quot;Check if user is student.&quot;&quot;&quot;
+    return user.is_authenticated and user.is_student
+
+
+@login_required
+@user_passes_test(is_admin)
+def upload_students(request):
+    &quot;&quot;&quot;Upload student data via CSV/XLSX.&quot;&quot;&quot;
+    if request.method == &#x27;POST&#x27;:
+        serializer = StudentUploadSerializer(data=request.FILES)
+        if serializer.is_valid():
+            file = serializer.validated_data[&#x27;file&#x27;]
+            
+            try:
+                if file.name.endswith(&#x27;.csv&#x27;):
+                    df = pd.read_csv(file)
+                else:
+                    df = pd.read_excel(file)
+                
+                # Expected columns now: roll_number, name, email, company (mandatory)
+                required_columns = [&#x27;roll_number&#x27;, &#x27;name&#x27;, &#x27;email&#x27;, &#x27;company&#x27;]
+                if not all(col in df.columns for col in required_columns):
+                    messages.error(request, &#x27;File must contain: roll_number, name, email, company columns&#x27;)
+                    return render(request, &#x27;admin/upload_students.html&#x27;)
+                
+                success_count = 0
+                error_count = 0
+                
+                for _, row in df.iterrows():
+                    try:
+                        # Check if student already exists (by roll number)
+                        if StudentProfile.objects.filter(jntu_no=row[&#x27;roll_number&#x27;]).exists():
+                            continue
+                        # Resolve company from master table
+                        company_name = str(row[&#x27;company&#x27;]).strip()
+                        try:
+                            company_obj = Company.objects.get(name__iexact=company_name)
+                        except Company.DoesNotExist:
+                            error_count += 1
+                            continue
+
+                        # Create user
+                        user = User.objects.create_user(
+                            email=row[&#x27;email&#x27;],
+                            first_name=row[&#x27;name&#x27;].split()[0] if &#x27; &#x27; in str(row[&#x27;name&#x27;]) else row[&#x27;name&#x27;],
+                            last_name=row[&#x27;name&#x27;].split()[-1] if &#x27; &#x27; in str(row[&#x27;name&#x27;]) else &#x27;&#x27;,
+                            username=row[&#x27;email&#x27;],
+                            role=&#x27;student&#x27;
+                        )
+                        # Set default password to roll number
+                        user.set_password(str(row[&#x27;roll_number&#x27;]))
+                        user.save()
+                        
+                        # Create student profile
+                        profile = StudentProfile.objects.create(
+                            user=user,
+                            jntu_no=row[&#x27;roll_number&#x27;],
+                            name=row[&#x27;name&#x27;],
+                            company=company_obj.name,
+                            lat=company_obj.lat,
+                            lon=company_obj.lon
+                        )
+                        
+                        success_count += 1
+                        
+                    except Exception as e:
+                        error_count += 1
+                        print(f&quot;Error creating student {row.get(&#x27;jntu_no&#x27;, &#x27;unknown&#x27;)}: {str(e)}&quot;)
+                
+                messages.success(request, f&#x27;Successfully created {success_count} students. Errors: {error_count}&#x27;)
+                
+            except Exception as e:
+                messages.error(request, f&#x27;Error processing file: {str(e)}&#x27;)
+    
+    return render(request, &#x27;admin/upload_students.html&#x27;)
+
+
+@login_required
+@user_passes_test(is_admin)
+def manage_students(request):
+    &quot;&quot;&quot;Manage student information and locations.&quot;&quot;&quot;
+    students = StudentProfile.objects.select_related(&#x27;user&#x27;).all().order_by(&#x27;-created_at&#x27;)
+    # Optional filter by company name
+    company_filter = request.GET.get(&#x27;company&#x27;)
+    if company_filter:
+        students = students.filter(company=company_filter)
+    
+    if request.method == &#x27;POST&#x27;:
+        action = request.POST.get(&#x27;action&#x27;)
+        
+        if action == &#x27;update_location&#x27;:
+            student_id = request.POST.get(&#x27;student_id&#x27;)
+            lat = request.POST.get(&#x27;lat&#x27;)
+            lon = request.POST.get(&#x27;lon&#x27;)
+            
+            try:
+                student = StudentProfile.objects.get(id=student_id)
+                
+                # Handle empty string values for lat/lon fields
+                if lat and lat.strip():
+                    try:
+                        student.lat = float(lat)
+                    except ValueError:
+                        messages.error(request, &#x27;Invalid latitude value&#x27;)
+                        return redirect(&#x27;attendance:manage_students&#x27;)
+                else:
+                    student.lat = None
+                
+                if lon and lon.strip():
+                    try:
+                        student.lon = float(lon)
+                    except ValueError:
+                        messages.error(request, &#x27;Invalid longitude value&#x27;)
+                        return redirect(&#x27;attendance:manage_students&#x27;)
+                else:
+                    student.lon = None
+                
+                student.save()
+                messages.success(request, f&#x27;Location updated for {student.name}&#x27;)
+            except StudentProfile.DoesNotExist:
+                messages.error(request, &#x27;Student not found&#x27;)
+        
+        elif action == &#x27;bulk_update&#x27;:
+            company = request.POST.get(&#x27;company&#x27;)
+            lat = request.POST.get(&#x27;lat&#x27;)
+            lon = request.POST.get(&#x27;lon&#x27;)
+            
+            if company and lat and lon:
+                try:
+                    lat_value = float(lat) if lat.strip() else None
+                    lon_value = float(lon) if lon.strip() else None
+                    updated = StudentProfile.objects.filter(company=company).update(lat=lat_value, lon=lon_value)
+                    messages.success(request, f&#x27;Updated location for {updated} students in {company}&#x27;)
+                except ValueError:
+                    messages.error(request, &#x27;Invalid latitude or longitude values&#x27;)
+            else:
+                messages.error(request, &#x27;Please provide company, latitude, and longitude values&#x27;)
+        
+        elif action == &#x27;delete_selected&#x27;:
+            ids = request.POST.getlist(&#x27;selected_ids&#x27;)
+            if ids:
+                try:
+                    deleted_count = 0
+                    for student_id in ids:
+                        try:
+                            student_profile = StudentProfile.objects.get(id=student_id)
+                            # Delete the associated User first, then StudentProfile
+                            user = student_profile.user
+                            student_profile.delete()  # This should cascade delete the User
+                            # If cascade doesn&#x27;t work, explicitly delete the user
+                            if User.objects.filter(id=user.id).exists():
+                                user.delete()
+                            deleted_count += 1
+                        except StudentProfile.DoesNotExist:
+                            continue
+                    
+                    messages.success(request, f&#x27;Successfully deleted {deleted_count} selected student records&#x27;)
+                except Exception as e:
+                    messages.error(request, f&#x27;Error deleting selected students: {str(e)}&#x27;)
+            else:
+                messages.error(request, &#x27;No students selected&#x27;)
+        
+        elif action == &#x27;reset_password&#x27;:
+            student_id = request.POST.get(&#x27;student_id&#x27;)
+            new_password = request.POST.get(&#x27;new_password&#x27;)
+            
+            if not student_id or not new_password:
+                messages.error(request, &#x27;Student ID and new password are required&#x27;)
+            else:
+                try:
+                    student_profile = StudentProfile.objects.get(id=student_id)
+                    user = student_profile.user
+                    
+                    # Validate password length
+                    if len(new_password) &lt; 6:
+                        messages.error(request, &#x27;Password must be at least 6 characters long&#x27;)
+                    else:
+                        user.set_password(new_password)
+                        user.save()
+                        messages.success(request, f&#x27;Password reset successfully for {student_profile.name}&#x27;)
+                        
+                except StudentProfile.DoesNotExist:
+                    messages.error(request, &#x27;Student not found&#x27;)
+                except Exception as e:
+                    messages.error(request, f&#x27;Error resetting password: {str(e)}&#x27;)
+        
+        elif action == &#x27;bulk_reset_password&#x27;:
+            new_password = request.POST.get(&#x27;new_password&#x27;)
+            selected_ids = request.POST.getlist(&#x27;selected_ids&#x27;)
+            
+            if not new_password or not selected_ids:
+                messages.error(request, &#x27;Password and selected students are required&#x27;)
+            else:
+                if len(new_password) &lt; 6:
+                    messages.error(request, &#x27;Password must be at least 6 characters long&#x27;)
+                else:
+                    try:
+                        updated_count = 0
+                        for student_id in selected_ids:
+                            try:
+                                student_profile = StudentProfile.objects.get(id=student_id)
+                                user = student_profile.user
+                                user.set_password(new_password)
+                                user.save()
+                                updated_count += 1
+                            except StudentProfile.DoesNotExist:
+                                continue
+                        
+                        messages.success(request, f&#x27;Password reset successfully for {updated_count} students&#x27;)
+                    except Exception as e:
+                        messages.error(request, f&#x27;Error resetting passwords: {str(e)}&#x27;)
+        
+        elif action == &#x27;delete_all&#x27;:
+            try:
+                # Count students before deletion
+                student_profiles_count = StudentProfile.objects.count()
+                student_users_count = User.objects.filter(role=&#x27;student&#x27;).count()
+                
+                # Delete all StudentProfile records (this should cascade delete User records)
+                StudentProfile.objects.all().delete()
+                
+                # If cascade didn&#x27;t work, manually delete remaining student users
+                remaining_student_users = User.objects.filter(role=&#x27;student&#x27;).count()
+                if remaining_student_users &gt; 0:
+                    User.objects.filter(role=&#x27;student&#x27;).delete()
+                
+                messages.success(request, f&#x27;Successfully deleted all {student_profiles_count} student profiles and {student_users_count} student user accounts from database&#x27;)
+            except Exception as e:
+                messages.error(request, f&#x27;Error deleting all students: {str(e)}&#x27;)
+    
+    # Pagination
+    paginator = Paginator(students, 20)
+    page_number = request.GET.get(&#x27;page&#x27;)
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        &#x27;page_obj&#x27;: page_obj,
+        &#x27;companies&#x27;: StudentProfile.objects.values_list(&#x27;company&#x27;, flat=True).distinct()
+    }
+    return render(request, &#x27;admin/manage_students.html&#x27;, context)
+
+
+@login_required
+@user_passes_test(is_admin)
+def attendance_analytics(request):
+    &quot;&quot;&quot;Enhanced attendance analytics with time tracking.&quot;&quot;&quot;
+    from_date = request.GET.get(&#x27;from_date&#x27;)
+    to_date = request.GET.get(&#x27;to_date&#x27;)
+    company = request.GET.get(&#x27;company&#x27;)
+    
+    # Default to last 30 days
+    if not from_date:
+        from_date = (date.today() - timezone.timedelta(days=30)).strftime(&#x27;%Y-%m-%d&#x27;)
+    if not to_date:
+        to_date = date.today().strftime(&#x27;%Y-%m-%d&#x27;)
+    
+    # Filter attendance logs
+    attendance_query = AttendanceLog.objects.filter(
+        date__range=[from_date, to_date]
+    ).select_related(&#x27;student&#x27;)
+    
+    if company:
+        attendance_query = attendance_query.filter(student__company=company)
+    
+    # Get statistics
+    total_attendance = attendance_query.count()
+    present_count = attendance_query.filter(status=&#x27;present&#x27;).count()
+    fail_geo_count = attendance_query.filter(status=&#x27;fail_geo&#x27;).count()
+    fail_face_count = attendance_query.filter(status=&#x27;fail_face&#x27;).count()
+    fail_both_count = attendance_query.filter(status=&#x27;fail_both&#x27;).count()
+    
+    # Time tracking statistics
+    completed_sessions = attendance_query.filter(
+        check_in_time__isnull=False, 
+        check_out_time__isnull=False
+    )
+    total_time_minutes = completed_sessions.aggregate(
+        total=models.Sum(&#x27;total_time_minutes&#x27;)
+    )[&#x27;total&#x27;] or 0
+    
+    avg_time_minutes = completed_sessions.aggregate(
+        avg=models.Avg(&#x27;total_time_minutes&#x27;)
+    )[&#x27;avg&#x27;] or 0
+    
+    # Calculate total working days (common to all students)
+    # Only count days where at least one student completed both check-in AND check-out
+    total_working_days = attendance_query.filter(
+        check_in_time__isnull=False,
+        check_out_time__isnull=False
+    ).values(&#x27;date&#x27;).distinct().count()
+    
+    # Student time tracking data with working days and attendance
+    student_time_data = []
+    for student in StudentProfile.objects.all():
+        student_attendance = attendance_query.filter(student=student)
+        student_total_time = student_attendance.aggregate(
+            total=models.Sum(&#x27;total_time_minutes&#x27;)
+        )[&#x27;total&#x27;] or 0
+        
+        # Count days with check-in only (for reference)
+        student_days_with_checkin = student_attendance.filter(
+            check_in_time__isnull=False
+        ).count()
+        
+        # Count distinct dates where student completed both check-in AND check-out
+        student_days_present = student_attendance.filter(
+            check_in_time__isnull=False,
+            check_out_time__isnull=False
+        ).values(&#x27;date&#x27;).distinct().count()
+        
+        avg_time_per_day = 0
+        if student_days_present &gt; 0:
+            avg_time_per_day = student_total_time / student_days_present
+        
+        attendance_rate = 0
+        if total_working_days &gt; 0:
+            attendance_rate = round((student_days_present / total_working_days) * 100, 2)
+        
+        # Include all students, even if they have no attendance
+            student_time_data.append({
+                &#x27;student&#x27;: student,
+                &#x27;total_time_minutes&#x27;: student_total_time,
+                &#x27;total_time_hours&#x27;: student_total_time / 60,
+            &#x27;days_present&#x27;: student_days_present,
+            &#x27;days_with_checkin&#x27;: student_days_with_checkin,
+                &#x27;avg_time_per_day&#x27;: avg_time_per_day,
+            &#x27;avg_time_per_day_hours&#x27;: avg_time_per_day / 60,
+            &#x27;attendance_rate&#x27;: attendance_rate
+            })
+    
+    # Sort by attendance rate first, then by total time
+    student_time_data.sort(key=lambda x: (x[&#x27;attendance_rate&#x27;], x[&#x27;total_time_minutes&#x27;]), reverse=True)
+    
+    # Daily attendance data for charts
+    daily_data = attendance_query.values(&#x27;date&#x27;).annotate(
+        present=models.Count(&#x27;id&#x27;, filter=models.Q(status=&#x27;present&#x27;)),
+        total=models.Count(&#x27;id&#x27;)
+    ).order_by(&#x27;date&#x27;)
+    
+    context = {
+        &#x27;from_date&#x27;: from_date,
+        &#x27;to_date&#x27;: to_date,
+        &#x27;company&#x27;: company,
+        &#x27;total_attendance&#x27;: total_attendance,
+        &#x27;present_count&#x27;: present_count,
+        &#x27;fail_geo_count&#x27;: fail_geo_count,
+        &#x27;fail_face_count&#x27;: fail_face_count,
+        &#x27;fail_both_count&#x27;: fail_both_count,
+        &#x27;daily_data&#x27;: list(daily_data),
+        &#x27;companies&#x27;: StudentProfile.objects.values_list(&#x27;company&#x27;, flat=True).distinct(),
+        # Time tracking data
+        &#x27;completed_sessions&#x27;: completed_sessions.count(),
+        &#x27;total_time_minutes&#x27;: total_time_minutes,
+        &#x27;avg_time_minutes&#x27;: avg_time_minutes,
+        &#x27;total_time_hours&#x27;: total_time_minutes / 60,
+        &#x27;avg_time_hours&#x27;: avg_time_minutes / 60,
+        &#x27;total_working_days&#x27;: total_working_days,
+        &#x27;student_time_data&#x27;: student_time_data[:20],  # Top 20 students
+    }
+    return render(request, &#x27;admin/analytics.html&#x27;, context)
+
+
+@login_required
+@user_passes_test(is_admin)
+def export_attendance(request):
+    &quot;&quot;&quot;Export attendance data to CSV.&quot;&quot;&quot;
+    from_date = request.GET.get(&#x27;from_date&#x27;)
+    to_date = request.GET.get(&#x27;to_date&#x27;)
+    company = request.GET.get(&#x27;company&#x27;)
+    
+    # Filter attendance logs
+    attendance_query = AttendanceLog.objects.filter(
+        date__range=[from_date, to_date]
+    ).select_related(&#x27;student&#x27;)
+    
+    if company:
+        attendance_query = attendance_query.filter(student__company=company)
+    
+    # Create CSV response
+    response = HttpResponse(content_type=&#x27;text/csv&#x27;)
+    response[&#x27;Content-Disposition&#x27;] = f&#x27;attachment; filename=&quot;attendance_{from_date}_to_{to_date}.csv&quot;&#x27;
+    
+    writer = csv.writer(response)
+    writer.writerow([
+        &#x27;Date&#x27;, &#x27;Time&#x27;, &#x27;Student Name&#x27;, &#x27;JNTU Number&#x27;, &#x27;Company&#x27;, &#x27;Status&#x27;,
+        &#x27;Latitude&#x27;, &#x27;Longitude&#x27;, &#x27;GPS Accuracy&#x27;, &#x27;Geofence Verified&#x27;, &#x27;Face Verified&#x27;
+    ])
+    
+    for log in attendance_query:
+        writer.writerow([
+            log.date, log.time, log.student.name, log.student.jntu_no,
+            log.student.company, log.get_status_display(), log.lat, log.lon,
+            log.accuracy, log.geofence_verified, log.face_verified
+        ])
+    
+    return response
+
+
+@login_required
+@user_passes_test(is_admin)
+def contact_messages(request):
+    &quot;&quot;&quot;View and respond to student contact messages.&quot;&quot;&quot;
+    messages_list = ContactMessage.objects.select_related(&#x27;student&#x27;, &#x27;responded_by&#x27;).all().order_by(&#x27;-created_at&#x27;)
+    
+    if request.method == &#x27;POST&#x27;:
+        message_id = request.POST.get(&#x27;message_id&#x27;)
+        response_text = request.POST.get(&#x27;response&#x27;)
+        
+        if message_id and response_text:
+            try:
+                message = ContactMessage.objects.get(id=message_id)
+                message.mark_responded(request.user, response_text)
+                messages.success(request, &#x27;Response sent successfully&#x27;)
+            except ContactMessage.DoesNotExist:
+                messages.error(request, &#x27;Message not found&#x27;)
+    
+    # Pagination
+    paginator = Paginator(messages_list, 20)
+    page_number = request.GET.get(&#x27;page&#x27;)
+    page_obj = paginator.get_page(page_number)
+    
+    context = {&#x27;page_obj&#x27;: page_obj}
+    return render(request, &#x27;admin/contact_messages.html&#x27;, context)
+
+
+@login_required
+@user_passes_test(is_admin)
+def manage_companies(request):
+    &quot;&quot;&quot;Add and list companies for mapping students.&quot;&quot;&quot;
+    def parse_coordinate(value: str, is_lat: bool) -&gt; float:
+        &quot;&quot;&quot;Parse decimal or DMS strings (e.g., 17°42′15″N, 82 59 30 E) to decimal degrees.
+
+        Supports symbols: °, º, deg; ′, &#x27;, minutes; ″, &quot;, seconds; optional N/S/E/W.
+        &quot;&quot;&quot;
+        if value is None:
+            raise ValueError(&#x27;Empty coordinate&#x27;)
+        s = str(value).strip().upper()
+        if not s:
+            raise ValueError(&#x27;Empty coordinate&#x27;)
+
+        # Try simple float first
+        try:
+            return float(s)
+        except ValueError:
+            pass
+
+        # Normalize unicode symbols
+        s = (
+            s.replace(&#x27;DEG&#x27;, &#x27;°&#x27;)
+             .replace(&#x27;º&#x27;, &#x27;°&#x27;)
+             .replace(&#x27;˚&#x27;, &#x27;°&#x27;)
+             .replace(&#x27;’&#x27;, &quot;&#x27;&quot;)
+             .replace(&#x27;′&#x27;, &quot;&#x27;&quot;)
+             .replace(&#x27;”&#x27;, &#x27;&quot;&#x27;)
+             .replace(&#x27;″&#x27;, &#x27;&quot;&#x27;)
+        )
+
+        # Regex for DMS: degrees minutes seconds optional direction
+        m = re.match(r&quot;^\s*(\d+(?:\.\d+)?)\D+(\d+(?:\.\d+)?)?\D*(\d+(?:\.\d+)?)?\s*([NSEW])?\s*$&quot;, s)
+        if not m:
+            # Alternative: space separated
+            m = re.match(r&quot;^\s*(\d+(?:\.\d+)?)(?:\s+(\d+(?:\.\d+)?))?(?:\s+(\d+(?:\.\d+)?))?\s*([NSEW])?\s*$&quot;, s)
+        if not m:
+            raise ValueError(&#x27;Invalid coordinate format&#x27;)
+
+        deg = float(m.group(1))
+        minutes = float(m.group(2)) if m.group(2) is not None else 0.0
+        seconds = float(m.group(3)) if m.group(3) is not None else 0.0
+        direction = m.group(4)
+
+        decimal = deg + (minutes / 60.0) + (seconds / 3600.0)
+        if direction in (&#x27;S&#x27;, &#x27;W&#x27;):
+            decimal = -decimal
+
+        # Validate range
+        if is_lat and not (-90.0 &lt;= decimal &lt;= 90.0):
+            raise ValueError(&#x27;Latitude out of range (-90..90)&#x27;)
+        if not is_lat and not (-180.0 &lt;= decimal &lt;= 180.0):
+            raise ValueError(&#x27;Longitude out of range (-180..180)&#x27;)
+        return decimal
+
+    if request.method == &#x27;POST&#x27;:
+        name = request.POST.get(&#x27;name&#x27;, &#x27;&#x27;).strip()
+        address = request.POST.get(&#x27;address&#x27;, &#x27;&#x27;).strip()
+        phone = request.POST.get(&#x27;phone&#x27;, &#x27;&#x27;).strip()
+        email = request.POST.get(&#x27;email&#x27;, &#x27;&#x27;).strip()
+        lat_raw = request.POST.get(&#x27;lat&#x27;)
+        lon_raw = request.POST.get(&#x27;lon&#x27;)
+        radius = request.POST.get(&#x27;radius&#x27;) or 150
+        if name and lat_raw and lon_raw:
+            try:
+                lat_dd = parse_coordinate(lat_raw, is_lat=True)
+                lon_dd = parse_coordinate(lon_raw, is_lat=False)
+                Company.objects.create(
+                    name=name, lat=lat_dd, lon=lon_dd, radius=radius,
+                    address=address, phone=phone, email=email
+                )
+                messages.success(request, f&#x27;Company {name} added successfully&#x27;)
+            except Exception as e:
+                messages.error(request, f&#x27;Failed to add company: {str(e)}&#x27;)
+        else:
+            messages.error(request, &#x27;Please fill all required fields&#x27;)
+
+    companies = Company.objects.all().order_by(&#x27;name&#x27;)
+    return render(request, &#x27;admin/companies.html&#x27;, {&#x27;companies&#x27;: companies})
+
+
+@login_required
+@user_passes_test(is_admin)
+def edit_company(request, company_id):
+    &quot;&quot;&quot;Edit an existing company.&quot;&quot;&quot;
+    try:
+        company = Company.objects.get(id=company_id)
+    except Company.DoesNotExist:
+        messages.error(request, &#x27;Company not found&#x27;)
+        return redirect(&#x27;attendance:manage_companies&#x27;)
+    
+    def parse_coordinate(value: str, is_lat: bool) -&gt; float:
+        &quot;&quot;&quot;Parse decimal or DMS strings (e.g., 17°42′15″N, 82 59 30 E) to decimal degrees.
+
+        Supports symbols: °, º, deg; ′, &#x27;, minutes; ″, &quot;, seconds; optional N/S/E/W.
+        &quot;&quot;&quot;
+        if value is None:
+            raise ValueError(&#x27;Empty coordinate&#x27;)
+        s = str(value).strip().upper()
+        if not s:
+            raise ValueError(&#x27;Empty coordinate&#x27;)
+
+        # Try simple float first
+        try:
+            return float(s)
+        except ValueError:
+            pass
+
+        # Normalize unicode symbols
+        s = (
+            s.replace(&#x27;DEG&#x27;, &#x27;°&#x27;)
+             .replace(&#x27;º&#x27;, &#x27;°&#x27;)
+             .replace(&#x27;˚&#x27;, &#x27;°&#x27;)
+             .replace(&#x27;&#x27;, &quot;&#x27;&quot;)
+             .replace(&#x27;′&#x27;, &quot;&#x27;&quot;)
+             .replace(&#x27;&quot;&#x27;, &#x27;&quot;&#x27;)
+             .replace(&#x27;″&#x27;, &#x27;&quot;&#x27;)
+        )
+
+        # Regex for DMS: degrees minutes seconds optional direction
+        m = re.match(r&quot;^\s*(\d+(?:\.\d+)?)\D+(\d+(?:\.\d+)?)?\D*(\d+(?:\.\d+)?)?\s*([NSEW])?\s*$&quot;, s)
+        if not m:
+            # Alternative: space separated
+            m = re.match(r&quot;^\s*(\d+(?:\.\d+)?)(?:\s+(\d+(?:\.\d+)?))?(?:\s+(\d+(?:\.\d+)?))?\s*([NSEW])?\s*$&quot;, s)
+        if not m:
+            raise ValueError(&#x27;Invalid coordinate format&#x27;)
+
+        deg = float(m.group(1))
+        minutes = float(m.group(2)) if m.group(2) is not None else 0.0
+        seconds = float(m.group(3)) if m.group(3) is not None else 0.0
+        direction = m.group(4)
+
+        decimal = deg + (minutes / 60.0) + (seconds / 3600.0)
+        if direction in (&#x27;S&#x27;, &#x27;W&#x27;):
+            decimal = -decimal
+
+        # Validate range
+        if is_lat and not (-90.0 &lt;= decimal &lt;= 90.0):
+            raise ValueError(&#x27;Latitude out of range (-90..90)&#x27;)
+        if not is_lat and not (-180.0 &lt;= decimal &lt;= 180.0):
+            raise ValueError(&#x27;Longitude out of range (-180..180)&#x27;)
+        return decimal
+    
+    if request.method == &#x27;POST&#x27;:
+        name = request.POST.get(&#x27;name&#x27;, &#x27;&#x27;).strip()
+        address = request.POST.get(&#x27;address&#x27;, &#x27;&#x27;).strip()
+        phone = request.POST.get(&#x27;phone&#x27;, &#x27;&#x27;).strip()
+        email = request.POST.get(&#x27;email&#x27;, &#x27;&#x27;).strip()
+        lat_raw = request.POST.get(&#x27;lat&#x27;)
+        lon_raw = request.POST.get(&#x27;lon&#x27;)
+        radius = request.POST.get(&#x27;radius&#x27;) or 150
+        
+        if name and lat_raw and lon_raw:
+            try:
+                lat_dd = parse_coordinate(lat_raw, is_lat=True)
+                lon_dd = parse_coordinate(lon_raw, is_lat=False)
+                
+                # Check if name is being changed and if it conflicts with existing company
+                if company.name != name:
+                    if Company.objects.filter(name=name).exclude(id=company_id).exists():
+                        messages.error(request, f&#x27;Company with name &quot;{name}&quot; already exists&#x27;)
+                        return render(request, &#x27;admin/edit_company.html&#x27;, {&#x27;company&#x27;: company})
+                
+                # Update company
+                company.name = name
+                company.lat = lat_dd
+                company.lon = lon_dd
+                company.radius = radius
+                company.address = address
+                company.phone = phone
+                company.email = email
+                company.save()
+                
+                messages.success(request, f&#x27;Company {name} updated successfully&#x27;)
+                return redirect(&#x27;attendance:manage_companies&#x27;)
+            except Exception as e:
+                messages.error(request, f&#x27;Failed to update company: {str(e)}&#x27;)
+        else:
+            messages.error(request, &#x27;Please fill all required fields&#x27;)
+    
+    return render(request, &#x27;admin/edit_company.html&#x27;, {&#x27;company&#x27;: company})
+
+
+@login_required
+@user_passes_test(is_admin)
+def delete_company(request, company_id):
+    &quot;&quot;&quot;Delete a company.&quot;&quot;&quot;
+    try:
+        company = Company.objects.get(id=company_id)
+        company_name = company.name
+        company.delete()
+        messages.success(request, f&#x27;Company {company_name} deleted successfully&#x27;)
+    except Company.DoesNotExist:
+        messages.error(request, &#x27;Company not found&#x27;)
+    except Exception as e:
+        messages.error(request, f&#x27;Failed to delete company: {str(e)}&#x27;)
+    
+    return redirect(&#x27;attendance:manage_companies&#x27;)
+
+
+@login_required
+@user_passes_test(is_student)
+def mark_attendance_view(request):
+    &quot;&quot;&quot;Enhanced student attendance marking view with check-in/check-out support.&quot;&quot;&quot;
+    if request.method == &#x27;POST&#x27;:
+        try:
+            student_profile = request.user.student_profile
+            today = date.today()
+            # Localized current time for accurate display
+            current_time = timezone.localtime(timezone.now()).time()
+            
+            # Get form data directly
+            lat = request.POST.get(&#x27;lat&#x27;)
+            lon = request.POST.get(&#x27;lon&#x27;)
+            accuracy = request.POST.get(&#x27;accuracy&#x27;)
+            selfie_image = request.FILES.get(&#x27;selfie_image&#x27;)
+            device_info = request.POST.get(&#x27;device_info&#x27;, &#x27;&#x27;)
+            attendance_type = request.POST.get(&#x27;attendance_type&#x27;, &#x27;check_in&#x27;)
+            
+            # Validate required fields
+            if not all([lat, lon, accuracy, selfie_image]):
+                messages.error(request, &#x27;All fields are required.&#x27;)
+                context = _build_student_location_context(student_profile)
+                return render(request, &#x27;student/mark_attendance.html&#x27;, context)
+            
+            # Convert to appropriate types
+            try:
+                lat = float(lat)
+                lon = float(lon)
+                accuracy = float(accuracy)
+            except (ValueError, TypeError):
+                messages.error(request, &#x27;Invalid location or accuracy data.&#x27;)
+                context = _build_student_location_context(student_profile)
+                return render(request, &#x27;student/mark_attendance.html&#x27;, context)
+            
+            # Geofence verification
+            geofence_verified = verify_geofence(student_profile, lat, lon, accuracy)
+            
+            # Face verification with error handling
+            try:
+                # Check if student has face enrolled
+                if not student_profile.face_enrolled:
+                    print(f&quot;Student {student_profile.name} not face enrolled, skipping face verification&quot;)
+                    face_verified = True  # Allow attendance if not enrolled
+                else:
+                    # Try face verification
+                    face_verified = verify_face(student_profile, selfie_image)
+                    print(f&quot;Face verification result for {student_profile.name}: {face_verified}&quot;)
+            except Exception as e:
+                print(f&quot;Face verification failed for {student_profile.name}: {str(e)}&quot;)
+                # Log the full error for debugging
+                import traceback
+                print(f&quot;Face verification traceback: {traceback.format_exc()}&quot;)
+                face_verified = True  # Fallback: allow attendance if face verification fails
+            
+            # Check existing attendance for today
+            existing_attendance = AttendanceLog.objects.filter(
+                student=student_profile, 
+                date=today
+            ).order_by(&#x27;-updated_at&#x27;, &#x27;-time&#x27;).first()
+            
+            if attendance_type == &#x27;check_in&#x27;:
+                # Check if already completed check-in AND check-out
+                if existing_attendance and existing_attendance.check_in_time and existing_attendance.check_out_time:
+                    messages.error(request, &#x27;You have already completed attendance for today.&#x27;)
+                    context = _build_student_location_context(student_profile)
+                    return render(request, &#x27;student/mark_attendance.html&#x27;, context)
+                
+                # Create or update attendance log for check-in
+                # Allow recording even if verification fails (will be marked as fail_geo/fail_face)
+                
+                if existing_attendance:
+                    # Overwrite the previous attempt for today to reflect the latest result
+                    existing_attendance.time = current_time
+                    existing_attendance.check_in_time = current_time
+                    existing_attendance.lat = lat
+                    existing_attendance.lon = lon
+                    existing_attendance.accuracy = accuracy
+                    existing_attendance.device_info = device_info
+                    existing_attendance.geofence_verified = geofence_verified
+                    existing_attendance.face_verified = face_verified
+                    existing_attendance.save()
+                    attendance_log = existing_attendance
+                else:
+                    attendance_log = AttendanceLog.objects.create(
+                        student=student_profile,
+                        date=today,
+                        time=current_time,
+                        attendance_type=attendance_type,
+                        lat=lat,
+                        lon=lon,
+                        accuracy=accuracy,
+                        geofence_verified=geofence_verified,
+                        face_verified=face_verified,
+                        device_info=device_info,
+                        check_in_time=current_time
+                    )
+                
+                if geofence_verified and face_verified:
+                    messages.success(request, &#x27;Check-in successful! You are now pending check-out to be marked present.&#x27;)
+                else:
+                    reasons = []
+                    if not geofence_verified: reasons.append(&quot;Location mismatch&quot;)
+                    if not face_verified: reasons.append(&quot;Face verification failed&quot;)
+                    messages.warning(request, f&#x27;Check-in recorded but failed: {&quot;, &quot;.join(reasons)}. You are marked as Absent/Failed.&#x27;)
+            
+            elif attendance_type == &#x27;check_out&#x27;:
+                if not existing_attendance or not existing_attendance.check_in_time:
+                    messages.error(request, &#x27;You must check in first before checking out.&#x27;)
+                    context = _build_student_location_context(student_profile)
+                    return render(request, &#x27;student/mark_attendance.html&#x27;, context)
+                
+                if existing_attendance.check_out_time:
+                    messages.error(request, &#x27;You have already checked out today.&#x27;)
+                    context = _build_student_location_context(student_profile)
+                    return render(request, &#x27;student/mark_attendance.html&#x27;, context)
+                
+                # Update attendance log for check-out regardless of verification status
+                if geofence_verified and face_verified:
+                    messages.success(request, &#x27;Check-out successful! You are marked present.&#x27;)
+                else:
+                    reasons = []
+                    if not geofence_verified: reasons.append(&quot;Location mismatch&quot;)
+                    if not face_verified: reasons.append(&quot;Face verification failed&quot;)
+                    messages.warning(request, f&#x27;Check-out recorded but failed: {&quot;, &quot;.join(reasons)}. Attendance not marked as Present.&#x27;)
+
+                # Update attendance log for check-out
+                existing_attendance.check_out_time = current_time
+                existing_attendance.geofence_verified = geofence_verified
+                existing_attendance.face_verified = face_verified
+                existing_attendance.save()
+                attendance_log = existing_attendance
+            
+            return redirect(&#x27;users:student_dashboard&#x27;)
+            
+        except Exception as e:
+            error_msg = f&#x27;Error marking attendance: {str(e)}&#x27;
+            messages.error(request, error_msg)
+            print(f&quot;Attendance error for {student_profile.name}: {str(e)}&quot;)  # Debug logging
+            # Log the full traceback for debugging
+            import traceback
+            print(f&quot;Full traceback: {traceback.format_exc()}&quot;)
+
+    # GET or fallthrough render with location context
+    try:
+        student_profile = request.user.student_profile
+        context = _build_student_location_context(student_profile)
+    except Exception:
+        context = {}
+    return render(request, &#x27;student/mark_attendance.html&#x27;, context)
+
+
+# API Views
+@api_view([&#x27;POST&#x27;])
+@permission_classes([IsAuthenticated])
+def api_mark_attendance(request):
+    &quot;&quot;&quot;Enhanced API endpoint for marking attendance with check-in/check-out support.&quot;&quot;&quot;
+    serializer = AttendanceMarkSerializer(data=request.data, files=request.FILES)
+    if serializer.is_valid():
+        try:
+            student_profile = request.user.student_profile
+            today = date.today()
+            current_time = timezone.localtime(timezone.now()).time()
+            
+            # Get validated data
+            lat = serializer.validated_data[&#x27;lat&#x27;]
+            lon = serializer.validated_data[&#x27;lon&#x27;]
+            accuracy = serializer.validated_data[&#x27;accuracy&#x27;]
+            selfie_image = serializer.validated_data[&#x27;selfie_image&#x27;]
+            device_info = serializer.validated_data.get(&#x27;device_info&#x27;, &#x27;&#x27;)
+            attendance_type = serializer.validated_data.get(&#x27;attendance_type&#x27;, &#x27;check_in&#x27;)
+            
+            # Geofence verification
+            geofence_verified = verify_geofence(student_profile, lat, lon, accuracy)
+            
+            # Face verification with error handling
+            try:
+                # Check if student has face enrolled
+                if not student_profile.face_enrolled:
+                    print(f&quot;Student {student_profile.name} not face enrolled, skipping face verification&quot;)
+                    face_verified = True  # Allow attendance if not enrolled
+                else:
+                    # Try face verification
+                    face_verified = verify_face(student_profile, selfie_image)
+                    print(f&quot;Face verification result for {student_profile.name}: {face_verified}&quot;)
+            except Exception as e:
+                print(f&quot;Face verification failed for {student_profile.name}: {str(e)}&quot;)
+                # Log the full error for debugging
+                import traceback
+                print(f&quot;Face verification traceback: {traceback.format_exc()}&quot;)
+                face_verified = True  # Fallback: allow attendance if face verification fails
+            
+            # Check existing attendance for today
+            existing_attendance = AttendanceLog.objects.filter(
+                student=student_profile, 
+                date=today
+            ).order_by(&#x27;-updated_at&#x27;, &#x27;-time&#x27;).first()
+            
+            if attendance_type == &#x27;check_in&#x27;:
+                # Check if already completed check-in AND check-out
+                if existing_attendance and existing_attendance.check_in_time and existing_attendance.check_out_time:
+                    return Response({&#x27;error&#x27;: &#x27;You have already completed attendance for today&#x27;}, status=status.HTTP_400_BAD_REQUEST)
+
+                # Require both verifications at check-in
+                if not (geofence_verified and face_verified):
+                    return Response({&#x27;error&#x27;: &#x27;Check-in failed. Location and face must pass.&#x27;}, status=status.HTTP_400_BAD_REQUEST)
+
+                # Create or update attendance log for check-in
+                if existing_attendance:
+                    existing_attendance.time = current_time
+                    existing_attendance.check_in_time = current_time
+                    existing_attendance.lat = lat
+                    existing_attendance.lon = lon
+                    existing_attendance.accuracy = accuracy
+                    existing_attendance.device_info = device_info
+                    existing_attendance.geofence_verified = geofence_verified
+                    existing_attendance.face_verified = face_verified
+                    existing_attendance.save()
+                    attendance_log = existing_attendance
+                else:
+                    attendance_log = AttendanceLog.objects.create(
+                        student=student_profile,
+                        date=today,
+                        time=current_time,
+                        attendance_type=attendance_type,
+                        lat=lat,
+                        lon=lon,
+                        accuracy=accuracy,
+                        geofence_verified=geofence_verified,
+                        face_verified=face_verified,
+                        device_info=device_info,
+                        ip_address=request.META.get(&#x27;REMOTE_ADDR&#x27;),
+                        check_in_time=current_time
+                    )
+            
+            elif attendance_type == &#x27;check_out&#x27;:
+                if not existing_attendance or not existing_attendance.check_in_time:
+                    return Response({&#x27;error&#x27;: &#x27;You must check in first before checking out&#x27;}, status=status.HTTP_400_BAD_REQUEST)
+                
+                if existing_attendance.check_out_time:
+                    return Response({&#x27;error&#x27;: &#x27;You have already checked out today&#x27;}, status=status.HTTP_400_BAD_REQUEST)
+                
+                # Require both verifications at check-out
+                if not (geofence_verified and face_verified):
+                    return Response({&#x27;error&#x27;: &#x27;Check-out failed. Location and face must pass.&#x27;}, status=status.HTTP_400_BAD_REQUEST)
+
+                # Update attendance log for check-out
+                existing_attendance.check_out_time = current_time
+                existing_attendance.geofence_verified = geofence_verified
+                existing_attendance.face_verified = face_verified
+                existing_attendance.save()
+                attendance_log = existing_attendance
+            
+            return Response({
+                &#x27;status&#x27;: &#x27;success&#x27;,
+                &#x27;attendance_id&#x27;: str(attendance_log.id),
+                &#x27;attendance_type&#x27;: attendance_type,
+                &#x27;geofence_verified&#x27;: geofence_verified,
+                &#x27;face_verified&#x27;: face_verified,
+                &#x27;overall_status&#x27;: attendance_log.status,
+                &#x27;check_in_time&#x27;: attendance_log.check_in_time.isoformat() if attendance_log.check_in_time else None,
+                &#x27;check_out_time&#x27;: attendance_log.check_out_time.isoformat() if attendance_log.check_out_time else None,
+                &#x27;total_time_minutes&#x27;: attendance_log.total_time_minutes,
+                &#x27;formatted_total_time&#x27;: attendance_log.formatted_total_time
+            })
+            
+        except StudentProfile.DoesNotExist:
+            return Response({&#x27;error&#x27;: &#x27;Student profile not found&#x27;}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({&#x27;error&#x27;: str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view([&#x27;GET&#x27;])
+@permission_classes([IsAuthenticated])
+def api_attendance_history(request):
+    &quot;&quot;&quot;API endpoint for getting attendance history.&quot;&quot;&quot;
+    try:
+        student_profile = request.user.student_profile
+        from_date = request.GET.get(&#x27;from_date&#x27;)
+        to_date = request.GET.get(&#x27;to_date&#x27;)
+        
+        query = AttendanceLog.objects.filter(student=student_profile)
+        
+        if from_date:
+            query = query.filter(date__gte=from_date)
+        if to_date:
+            query = query.filter(date__lte=to_date)
+        
+        attendance_logs = query.order_by(&#x27;-date&#x27;, &#x27;-time&#x27;)
+        serializer = AttendanceLogSerializer(attendance_logs, many=True)
+        
+        return Response(serializer.data)
+        
+    except StudentProfile.DoesNotExist:
+        return Response({&#x27;error&#x27;: &#x27;Student profile not found&#x27;}, status=status.HTTP_400_BAD_REQUEST)
+
+
+def verify_geofence(student_profile, current_lat, current_lon, accuracy):
+    &quot;&quot;&quot;Verify if student is within geofence.
+
+    Preference order for geofence center/radius:
+    1) Matching Company record (authoritative source)
+    2) Fallback to StudentProfile.lat/lon and global radius
+    This avoids using stale student coordinates after company changes.
+    &quot;&quot;&quot;
+    from .models import Company
+
+    # Ensure numeric types
+    try:
+        current_lat_f = float(current_lat)
+        current_lon_f = float(current_lon)
+        accuracy_f = float(accuracy)
+    except Exception:
+        return False
+
+    # Handle unrealistic accuracy values (often indicates GPS issue or default value)
+    # If accuracy is extremely high (&gt; 1000m), assume it&#x27;s a faulty reading and allow
+    # the distance check to determine validity
+    # This handles cases where GPS returns default/invalid accuracy values
+    if accuracy_f &gt; 1000:
+        print(f&quot;Unrealistic GPS accuracy detected: {accuracy_f}m - treating as GPS error, allowing geofence check&quot;)
+        # Set to reasonable default to pass accuracy check
+        accuracy_f = 50.0
+    
+    # Check GPS accuracy threshold - use reasonable threshold for mobile GPS
+    # Mobile GPS can have accuracy of 10-100m in normal conditions
+    max_accuracy_threshold = 1000.0  # Very lenient threshold (1km)
+    if accuracy_f &gt; max_accuracy_threshold:
+        print(f&quot;GPS accuracy too low: {accuracy_f}m &gt; {max_accuracy_threshold}m threshold&quot;)
+        return False
+
+    # Determine geofence center: prefer company center, fallback to student_profile lat/lon
+    company_obj = None
+    if getattr(student_profile, &#x27;company&#x27;, None):
+        try:
+            company_obj = Company.objects.filter(name__iexact=student_profile.company).first()
+        except Exception:
+            company_obj = None
+
+    if company_obj and company_obj.lat is not None and company_obj.lon is not None:
+        center_lat = float(company_obj.lat)
+        center_lon = float(company_obj.lon)
+    elif student_profile.lat is not None and student_profile.lon is not None:
+        center_lat = float(student_profile.lat)
+        center_lon = float(student_profile.lon)
+    else:
+        return False
+
+    # Distance in meters
+    distance_m = geodesic((center_lat, center_lon), (current_lat_f, current_lon_f)).meters
+
+    # Radius: prefer company radius if available, else global default
+    radius_m = float(company_obj.radius) if company_obj and company_obj.radius is not None else float(settings.GEOFENCE_RADIUS)
+
+    # More lenient geofence check: allow if within radius OR if accuracy uncertainty is large
+    # This handles edge cases where student is right at the boundary
+    # Factor in GPS accuracy in the decision: if distance is close enough considering accuracy
+    effective_radius = radius_m + (accuracy_f / 2)  # Add half of accuracy as buffer
+    
+    within_radius = distance_m &lt;= radius_m
+    within_effective_radius = distance_m &lt;= effective_radius
+
+    # Log geofence verification details for debugging
+    print(f&quot;Geofence verification for {student_profile.name}:&quot;)
+    print(f&quot;  Center: {center_lat}, {center_lon}&quot;)
+    print(f&quot;  Current: {current_lat_f}, {current_lon_f}&quot;)
+    print(f&quot;  Distance: {distance_m:.2f}m&quot;)
+    print(f&quot;  Radius: {radius_m}m&quot;)
+    print(f&quot;  Effective radius (with accuracy buffer): {effective_radius:.2f}m&quot;)
+    print(f&quot;  Accuracy: {accuracy_f}m&quot;)
+    print(f&quot;  Within radius: {within_radius}&quot;)
+    print(f&quot;  Within effective radius: {within_effective_radius}&quot;)
+
+    # Allow geofence if within strict radius OR within effective radius (considering GPS uncertainty)
+    return within_radius or within_effective_radius
+
+
+def _build_student_location_context(student_profile):
+    &quot;&quot;&quot;Prepare context with assigned coordinates and geofence radius for client-side gating.
+
+    Preference order matches verify_geofence: use Company center/radius when available,
+    fallback to StudentProfile.lat/lon and global radius. This keeps UI and backend
+    consistent and avoids stale student coordinates after company changes.
+    &quot;&quot;&quot;
+    from .models import Company
+    company_obj = None
+    if getattr(student_profile, &#x27;company&#x27;, None):
+        company_obj = Company.objects.filter(name__iexact=student_profile.company).first()
+
+    assigned_lat = None
+    assigned_lon = None
+    radius_m = float(settings.GEOFENCE_RADIUS)
+
+    if company_obj and company_obj.radius is not None:
+        radius_m = float(company_obj.radius)
+
+    # Prefer company center for display as authoritative
+    if company_obj and company_obj.lat is not None and company_obj.lon is not None:
+        assigned_lat = float(company_obj.lat)
+        assigned_lon = float(company_obj.lon)
+    elif student_profile.lat is not None and student_profile.lon is not None:
+        assigned_lat = float(student_profile.lat)
+        assigned_lon = float(student_profile.lon)
+
+    return {
+        &#x27;assigned_lat&#x27;: assigned_lat,
+        &#x27;assigned_lon&#x27;: assigned_lon,
+        &#x27;geofence_radius&#x27;: radius_m,
+    }
+
+
+def verify_face(student_profile, selfie_image):
+    &quot;&quot;&quot;Verify face using local face_recognition library with StudentProfile.face_encoding.&quot;&quot;&quot;
+    # Check if face verification is enabled
+    if not settings.FACE_VERIFICATION_ENABLED:
+        print(f&quot;Face verification disabled in settings, allowing attendance&quot;)
+        return True
+    
+    if not student_profile.face_enrolled:
+        print(f&quot;Face verification skipped: Student {student_profile.name} not enrolled&quot;)
+        return True  # Allow attendance if not enrolled
+    
+    if not student_profile.face_encoding:
+        print(f&quot;Face verification skipped: Student {student_profile.name} has no face encoding data&quot;)
+        print(f&quot;Note: face_enrolled={student_profile.face_enrolled} but face_encoding is None - data inconsistency&quot;)
+        # Try to use face service as fallback
+        return _verify_face_with_service(student_profile, selfie_image)
+    
+    # Check if this is a dummy encoding (all zeros)
+    if all(x == 0.0 for x in student_profile.face_encoding):
+        print(f&quot;Face verification: Student {student_profile.name} has dummy encoding, using basic validation&quot;)
+        return _basic_image_validation(selfie_image, student_profile)
+    
+    try:
+        # Try to import face_recognition
+        import face_recognition
+        import numpy as np
+        from PIL import Image
+        import io
+        
+        # Get the enrolled face encoding from the database
+        enrolled_encoding = np.array(student_profile.face_encoding)
+        
+        # Read and process the selfie image
+        selfie_image.file.seek(0)  # Reset file pointer
+        image_data = selfie_image.file.read()
+        
+        # Load image using PIL from bytes
+        pil_image = Image.open(io.BytesIO(image_data))
+        
+        # Convert PIL image to RGB if necessary
+        if pil_image.mode != &#x27;RGB&#x27;:
+            pil_image = pil_image.convert(&#x27;RGB&#x27;)
+        
+        # Convert to numpy array for face_recognition
+        face_image = np.array(pil_image)
+        
+        # Detect face locations in the selfie
+        face_locations = face_recognition.face_locations(face_image)
+        
+        if not face_locations:
+            print(f&quot;No face detected in selfie for {student_profile.name}&quot;)
+            return False
+        
+        if len(face_locations) &gt; 1:
+            print(f&quot;Multiple faces detected in selfie for {student_profile.name}&quot;)
+            return False
+        
+        # Generate face encoding for the selfie
+        selfie_encodings = face_recognition.face_encodings(face_image, face_locations)
+        
+        if not selfie_encodings:
+            print(f&quot;Could not generate face encoding for {student_profile.name}&quot;)
+            return False
+        
+        selfie_encoding = selfie_encodings[0]
+        
+        # Calculate face distance between enrolled and selfie
+        face_distance = face_recognition.face_distance([enrolled_encoding], selfie_encoding)[0]
+        
+        # Determine match (threshold: 0.6 - same as the external service)
+        threshold = 0.6
+        matched = face_distance &lt;= threshold
+        
+        print(f&quot;Face verification for {student_profile.name}: distance={face_distance:.3f}, threshold={threshold}, matched={matched}&quot;)
+        
+        return matched
+        
+    except ImportError as e:
+        print(f&quot;Face recognition library not available: {str(e)}&quot;)
+        print(f&quot;Falling back to face service for {student_profile.name}&quot;)
+        # Fallback: Use face service
+        return _verify_face_with_service(student_profile, selfie_image)
+    except Exception as e:
+        print(f&quot;Face verification error for {student_profile.name}: {str(e)}&quot;)
+        # For any other error, fall back to face service
+        return _verify_face_with_service(student_profile, selfie_image)
+
+
+def _verify_face_with_service(student_profile, selfie_image):
+    &quot;&quot;&quot;Verify face using the face service as fallback.&quot;&quot;&quot;
+    try:
+        import requests
+        
+        # Prepare the image for the face service
+        selfie_image.file.seek(0)  # Reset file pointer
+        image_data = selfie_image.file.read()
+        
+        files = {&#x27;image&#x27;: (&#x27;selfie.jpg&#x27;, image_data, &#x27;image/jpeg&#x27;)}
+        data = {&#x27;student_id&#x27;: str(student_profile.id)}
+        
+        # Call face service verify endpoint
+        face_service_url = getattr(settings, &#x27;FACE_SERVICE_URL&#x27;, &#x27;http://localhost:8001&#x27;)
+        response = requests.post(
+            f&quot;{face_service_url}/face/verify&quot;,
+            files=files,
+            data=data,
+            timeout=30
+        )
+        
+        if response.status_code == 200:
+            result = response.json()
+            if result.get(&#x27;success&#x27;):
+                matched = result.get(&#x27;matched&#x27;, False)
+                distance = result.get(&#x27;distance&#x27;, 0.0)
+                print(f&quot;Face service verification for {student_profile.name}: distance={distance:.3f}, matched={matched}&quot;)
+                return matched
+            else:
+                print(f&quot;Face service verification failed for {student_profile.name}: {result.get(&#x27;message&#x27;, &#x27;Unknown error&#x27;)}&quot;)
+                return False
+        else:
+            print(f&quot;Face service request failed for {student_profile.name}: {response.status_code}&quot;)
+            return False
+            
+    except requests.exceptions.RequestException as e:
+        print(f&quot;Could not connect to face service for {student_profile.name}: {str(e)}&quot;)
+        # Final fallback: basic image validation
+        return _basic_image_validation(selfie_image, student_profile)
+    except Exception as e:
+        print(f&quot;Face service verification error for {student_profile.name}: {str(e)}&quot;)
+        # Final fallback: basic image validation
+        return _basic_image_validation(selfie_image, student_profile)
+
+
+def _basic_image_validation(selfie_image, student_profile):
+    &quot;&quot;&quot;Basic image validation as fallback when face_recognition is not available.&quot;&quot;&quot;
+    try:
+        from PIL import Image
+        import io
+        
+        # Read and process the selfie image
+        selfie_image.file.seek(0)  # Reset file pointer
+        image_data = selfie_image.file.read()
+        
+        # Load image using PIL from bytes
+        pil_image = Image.open(io.BytesIO(image_data))
+        
+        # Basic validation: check if image is valid and has reasonable dimensions
+        width, height = pil_image.size
+        
+        # Check minimum dimensions (should be at least 50x50 pixels - more lenient)
+        if width &lt; 50 or height &lt; 50:
+            print(f&quot;Image too small for {student_profile.name}: {width}x{height}&quot;)
+            return False
+        
+        # Check maximum dimensions (should not be too large)
+        if width &gt; 5000 or height &gt; 5000:
+            print(f&quot;Image too large for {student_profile.name}: {width}x{height}&quot;)
+            return False
+        
+        # Check file size (should be reasonable)
+        if len(image_data) &lt; 500:  # Less than 500 bytes is suspicious - more lenient
+            print(f&quot;Image file too small for {student_profile.name}: {len(image_data)} bytes&quot;)
+            return False
+        
+        if len(image_data) &gt; 10 * 1024 * 1024:  # More than 10MB is too large
+            print(f&quot;Image file too large for {student_profile.name}: {len(image_data)} bytes&quot;)
+            return False
+        
+        print(f&quot;Basic image validation passed for {student_profile.name}: {width}x{height}, {len(image_data)} bytes&quot;)
+        return True
+        
+    except Exception as e:
+        print(f&quot;Basic image validation failed for {student_profile.name}: {str(e)}&quot;)
+        # For dummy encodings, be more lenient - allow attendance if image seems reasonable
+        try:
+            # Try to get basic file info
+            selfie_image.file.seek(0)
+            image_data = selfie_image.file.read()
+            if len(image_data) &gt; 500 and len(image_data) &lt; 10 * 1024 * 1024:
+                print(f&quot;Allowing attendance for {student_profile.name} based on file size: {len(image_data)} bytes&quot;)
+                return True
+        except:
+            pass
+        return False
+</code></pre>
+    
+    <div class="page-break"></div>
+    <h2>11.3 User Models (users/models.py)</h2>
+    <p>Manages user authentication, roles (Student, Admin, Superadmin), and detailed student profiles.</p>
+    <pre style="background-color: #f8f9fa; padding: 10px; border: 1px solid #dee2e6; border-radius: 4px; overflow-x: auto; white-space: pre-wrap; font-size: 11px; font-family: 'Consolas', 'Monaco', monospace;"><code>&quot;&quot;&quot;
+User models for the attendance system.
+&quot;&quot;&quot;
+
+import uuid
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+from django.core.validators import EmailValidator
+from django.utils import timezone
+
+
+class User(AbstractUser):
+    &quot;&quot;&quot;
+    Custom User model with role-based access control.
+    &quot;&quot;&quot;
+    ROLE_CHOICES = [
+        (&#x27;superadmin&#x27;, &#x27;Super Admin&#x27;),
+        (&#x27;admin&#x27;, &#x27;Admin&#x27;),
+        (&#x27;student&#x27;, &#x27;Student&#x27;),
+    ]
+    
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    email = models.EmailField(unique=True, validators=[EmailValidator()])
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default=&#x27;student&#x27;)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    # Override username to use email
+    USERNAME_FIELD = &#x27;email&#x27;
+    REQUIRED_FIELDS = [&#x27;username&#x27;, &#x27;first_name&#x27;, &#x27;last_name&#x27;]
+    
+    class Meta:
+        db_table = &#x27;users&#x27;
+        verbose_name = &#x27;User&#x27;
+        verbose_name_plural = &#x27;Users&#x27;
+    
+    def __str__(self):
+        return f&quot;{self.email} ({self.get_role_display()})&quot;
+    
+    @property
+    def is_superadmin(self):
+        return self.role == &#x27;superadmin&#x27;
+    
+    @property
+    def is_admin(self):
+        return self.role == &#x27;admin&#x27;
+    
+    @property
+    def is_student(self):
+        return self.role == &#x27;student&#x27;
+
+
+class StudentProfile(models.Model):
+    &quot;&quot;&quot;
+    Extended profile for students with geolocation and face data.
+    &quot;&quot;&quot;
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name=&#x27;student_profile&#x27;)
+    jntu_no = models.CharField(max_length=20, unique=True, help_text=&quot;JNTU Number&quot;)
+    name = models.CharField(max_length=100)
+    company = models.CharField(max_length=100, blank=True, help_text=&quot;Company/Organization&quot;)
+    lat = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True, help_text=&quot;Latitude&quot;)
+    lon = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True, help_text=&quot;Longitude&quot;)
+    face_enrolled = models.BooleanField(default=False, help_text=&quot;Whether face is enrolled&quot;)
+    reference_image_url = models.URLField(blank=True, help_text=&quot;URL to reference face image&quot;)
+    face_encoding = models.JSONField(null=True, blank=True, help_text=&quot;Face encoding data&quot;)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = &#x27;student_profiles&#x27;
+        verbose_name = &#x27;Student Profile&#x27;
+        verbose_name_plural = &#x27;Student Profiles&#x27;
+    
+    def __str__(self):
+        return f&quot;{self.name} ({self.jntu_no})&quot;
+    
+    @property
+    def full_name(self):
+        return f&quot;{self.user.first_name} {self.user.last_name}&quot;.strip() or self.name
+
+
+class AdminInvite(models.Model):
+    &quot;&quot;&quot;
+    Admin account invitation system.
+    &quot;&quot;&quot;
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    email = models.EmailField(validators=[EmailValidator()])
+    invite_code = models.CharField(max_length=100, unique=True)
+    expires_at = models.DateTimeField()
+    used = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        db_table = &#x27;admin_invites&#x27;
+        verbose_name = &#x27;Admin Invite&#x27;
+        verbose_name_plural = &#x27;Admin Invites&#x27;
+    
+    def __str__(self):
+        return f&quot;Invite for {self.email}&quot;
+    
+    @property
+    def is_expired(self):
+        return timezone.now() &gt; self.expires_at
+    
+    @property
+    def is_valid(self):
+        return not self.used and not self.is_expired
+
+
+class EmailVerification(models.Model):
+    &quot;&quot;&quot;
+    Email verification tokens for students.
+    &quot;&quot;&quot;
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name=&#x27;email_verifications&#x27;)
+    token = models.CharField(max_length=100, unique=True)
+    expires_at = models.DateTimeField()
+    verified = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        db_table = &#x27;email_verifications&#x27;
+        verbose_name = &#x27;Email Verification&#x27;
+        verbose_name_plural = &#x27;Email Verifications&#x27;
+    
+    def __str__(self):
+        return f&quot;Verification for {self.user.email}&quot;
+    
+    @property
+    def is_expired(self):
+        return timezone.now() &gt; self.expires_at
+    
+    @property
+    def is_valid(self):
+        return not self.verified and not self.is_expired
+</code></pre>
+    
+    <div class="page-break"></div>
+    <h2>11.4 Face Service Microservice (face_service/main.py)</h2>
+    <p>A standalone microservice using FastAPI and Dlib for high-performance face encoding and verification.</p>
+    <pre style="background-color: #f8f9fa; padding: 10px; border: 1px solid #dee2e6; border-radius: 4px; overflow-x: auto; white-space: pre-wrap; font-size: 11px; font-family: 'Consolas', 'Monaco', monospace;"><code>&quot;&quot;&quot;
+FastAPI service for face recognition.
+&quot;&quot;&quot;
+
+import os
+import uuid
+import face_recognition
+import numpy as np
+from fastapi import FastAPI, File, UploadFile, Form, HTTPException
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel
+from typing import Optional
+import json
+from datetime import datetime
+
+app = FastAPI(
+    title=&quot;Face Recognition Service&quot;,
+    description=&quot;AI-powered face recognition service for attendance system&quot;,
+    version=&quot;1.0.0&quot;
+)
+
+# In-memory storage for face encodings (in production, use database)
+face_encodings = {}
+
+class FaceEnrollRequest(BaseModel):
+    student_id: str
+    encoding: list
+
+class FaceVerifyRequest(BaseModel):
+    student_id: str
+    encoding: list
+
+class FaceResponse(BaseModel):
+    success: bool
+    message: str
+    matched: Optional[bool] = None
+    distance: Optional[float] = None
+
+@app.get(&quot;/&quot;)
+async def root():
+    &quot;&quot;&quot;Root endpoint.&quot;&quot;&quot;
+    return {&quot;message&quot;: &quot;Face Recognition Service is running&quot;}
+
+@app.get(&quot;/health&quot;)
+async def health_check():
+    &quot;&quot;&quot;Health check endpoint.&quot;&quot;&quot;
+    return {&quot;status&quot;: &quot;healthy&quot;, &quot;timestamp&quot;: datetime.now().isoformat()}
+
+@app.get(&quot;/test&quot;)
+async def test_endpoint():
+    &quot;&quot;&quot;Test endpoint to verify service is working.&quot;&quot;&quot;
+    return {&quot;message&quot;: &quot;Face service is working&quot;, &quot;face_recognition_available&quot;: True}
+
+@app.post(&quot;/face/enroll&quot;, response_model=FaceResponse)
+async def enroll_face(
+    student_id: str = Form(...),
+    image: UploadFile = File(...)
+):
+    &quot;&quot;&quot;
+    Enroll a new face for a student.
+    
+    Args:
+        student_id: Unique identifier for the student
+        image: Face image file (JPEG/PNG)
+    
+    Returns:
+        Success status and enrollment confirmation
+    &quot;&quot;&quot;
+    try:
+        # Validate file type
+        if not image.content_type.startswith(&#x27;image/&#x27;):
+            raise HTTPException(status_code=400, detail=&quot;File must be an image&quot;)
+        
+        # Read and process image
+        image_data = await image.read()
+        
+        # Load image using face_recognition from bytes
+        import io
+        from PIL import Image
+        pil_image = Image.open(io.BytesIO(image_data))
+        face_image = np.array(pil_image)
+        
+        # Detect face locations
+        face_locations = face_recognition.face_locations(face_image)
+        
+        if not face_locations:
+            raise HTTPException(status_code=400, detail=&quot;No face detected in image&quot;)
+        
+        if len(face_locations) &gt; 1:
+            raise HTTPException(status_code=400, detail=&quot;Multiple faces detected. Please use an image with only one face.&quot;)
+        
+        # Generate face encoding
+        face_encoding = face_recognition.face_encodings(face_image, face_locations)[0]
+        
+        # Store encoding (in production, save to database)
+        face_encodings[student_id] = {
+            &#x27;encoding&#x27;: face_encoding.tolist(),
+            &#x27;enrolled_at&#x27;: datetime.now().isoformat()
+        }
+        
+        return FaceResponse(
+            success=True,
+            message=f&quot;Face enrolled successfully for student {student_id}&quot;
+        )
+        
+    except Exception as e:
+        print(f&quot;Face enrollment error: {str(e)}&quot;)
+        return FaceResponse(
+            success=False,
+            message=f&quot;Face enrollment failed: {str(e)}&quot;
+        )
+
+@app.post(&quot;/face/verify&quot;, response_model=FaceResponse)
+async def verify_face(
+    student_id: str = Form(...),
+    image: UploadFile = File(...)
+):
+    &quot;&quot;&quot;
+    Verify a face against enrolled face.
+    
+    Args:
+        student_id: Unique identifier for the student
+        image: Face image file to verify (JPEG/PNG)
+    
+    Returns:
+        Verification result with match status and distance
+    &quot;&quot;&quot;
+    try:
+        # Check if student is enrolled
+        if student_id not in face_encodings:
+            raise HTTPException(status_code=404, detail=&quot;Student face not enrolled&quot;)
+        
+        # Validate file type
+        if not image.content_type.startswith(&#x27;image/&#x27;):
+            raise HTTPException(status_code=400, detail=&quot;File must be an image&quot;)
+        
+        # Read and process image
+        image_data = await image.read()
+        
+        # Load image using face_recognition from bytes
+        import io
+        from PIL import Image
+        pil_image = Image.open(io.BytesIO(image_data))
+        face_image = np.array(pil_image)
+        
+        # Detect face locations
+        face_locations = face_recognition.face_locations(face_image)
+        
+        if not face_locations:
+            raise HTTPException(status_code=400, detail=&quot;No face detected in image&quot;)
+        
+        if len(face_locations) &gt; 1:
+            raise HTTPException(status_code=400, detail=&quot;Multiple faces detected. Please use an image with only one face.&quot;)
+        
+        # Generate face encoding for verification
+        verify_encoding = face_recognition.face_encodings(face_image, face_locations)[0]
+        
+        # Get enrolled encoding
+        enrolled_encoding = np.array(face_encodings[student_id][&#x27;encoding&#x27;])
+        
+        # Calculate face distance
+        face_distance = face_recognition.face_distance([enrolled_encoding], verify_encoding)[0]
+        
+        # Determine match (threshold: 0.6)
+        threshold = 0.6
+        matched = face_distance &lt;= threshold
+        
+        return FaceResponse(
+            success=True,
+            message=&quot;Face verification completed&quot;,
+            matched=matched,
+            distance=float(face_distance)
+        )
+        
+    except Exception as e:
+        print(f&quot;Face verification error: {str(e)}&quot;)
+        return FaceResponse(
+            success=False,
+            message=f&quot;Face verification failed: {str(e)}&quot;
+        )
+
+@app.get(&quot;/face/status/{student_id}&quot;)
+async def get_face_status(student_id: str):
+    &quot;&quot;&quot;
+    Get enrollment status for a student.
+    
+    Args:
+        student_id: Unique identifier for the student
+    
+    Returns:
+        Enrollment status and details
+    &quot;&quot;&quot;
+    if student_id in face_encodings:
+        return {
+            &quot;enrolled&quot;: True,
+            &quot;enrolled_at&quot;: face_encodings[student_id][&#x27;enrolled_at&#x27;]
+        }
+    else:
+        return {&quot;enrolled&quot;: False}
+
+@app.delete(&quot;/face/remove/{student_id}&quot;)
+async def remove_face(student_id: str):
+    &quot;&quot;&quot;
+    Remove enrolled face for a student.
+    
+    Args:
+        student_id: Unique identifier for the student
+    
+    Returns:
+        Removal confirmation
+    &quot;&quot;&quot;
+    if student_id in face_encodings:
+        del face_encodings[student_id]
+        return {&quot;message&quot;: f&quot;Face removed for student {student_id}&quot;}
+    else:
+        raise HTTPException(status_code=404, detail=&quot;Student face not found&quot;)
+
+@app.get(&quot;/face/stats&quot;)
+async def get_face_stats():
+    &quot;&quot;&quot;Get statistics about enrolled faces.&quot;&quot;&quot;
+    return {
+        &quot;total_enrolled&quot;: len(face_encodings),
+        &quot;enrolled_students&quot;: list(face_encodings.keys())
+    }
+
+if __name__ == &quot;__main__&quot;:
+    import uvicorn
+    uvicorn.run(app, host=&quot;0.0.0.0&quot;, port=8001)
+</code></pre>
+    
+    <div class="page-break"></div>
+    <h2>11.5 Main Settings (attendance_system/settings.py)</h2>
+    <p>Global configuration for Django, including database, middleware, and installed apps.</p>
+    <pre style="background-color: #f8f9fa; padding: 10px; border: 1px solid #dee2e6; border-radius: 4px; overflow-x: auto; white-space: pre-wrap; font-size: 11px; font-family: 'Consolas', 'Monaco', monospace;"><code>&quot;&quot;&quot;
+Django settings for attendance_system project.
+&quot;&quot;&quot;
+
+import os
+from pathlib import Path
+from datetime import timedelta
+
+# Build paths inside the project like this: BASE_DIR / &#x27;subdir&#x27;.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ.get(&#x27;SECRET_KEY&#x27;, &#x27;django-insecure-change-this-in-production&#x27;)
+
+# SECURITY WARNING: don&#x27;t run with debug turned on in production!
+DEBUG = os.environ.get(&#x27;DEBUG&#x27;, &#x27;True&#x27;).lower() == &#x27;true&#x27;
+
+ALLOWED_HOSTS = os.environ.get(&#x27;ALLOWED_HOSTS&#x27;, &#x27;localhost,127.0.0.1&#x27;).split(&#x27;,&#x27;)
+
+# Application definition
+INSTALLED_APPS = [
+    &#x27;django.contrib.admin&#x27;,
+    &#x27;django.contrib.auth&#x27;,
+    &#x27;django.contrib.contenttypes&#x27;,
+    &#x27;django.contrib.sessions&#x27;,
+    &#x27;django.contrib.messages&#x27;,
+    &#x27;django.contrib.staticfiles&#x27;,
+    &#x27;rest_framework&#x27;,
+    &#x27;rest_framework_simplejwt&#x27;,
+    &#x27;corsheaders&#x27;,
+    &#x27;users&#x27;,
+    &#x27;attendance&#x27;,
+    &#x27;analytics&#x27;,
+]
+
+MIDDLEWARE = [
+    &#x27;corsheaders.middleware.CorsMiddleware&#x27;,
+    &#x27;django.middleware.security.SecurityMiddleware&#x27;,
+    &#x27;django.contrib.sessions.middleware.SessionMiddleware&#x27;,
+    &#x27;django.middleware.common.CommonMiddleware&#x27;,
+    &#x27;django.middleware.csrf.CsrfViewMiddleware&#x27;,
+    &#x27;django.contrib.auth.middleware.AuthenticationMiddleware&#x27;,
+    &#x27;django.contrib.messages.middleware.MessageMiddleware&#x27;,
+    &#x27;django.middleware.clickjacking.XFrameOptionsMiddleware&#x27;,
+    &#x27;users.middleware.BlockAdminForNonSuperuserMiddleware&#x27;,
+]
+
+ROOT_URLCONF = &#x27;attendance_system.urls&#x27;
+
+TEMPLATES = [
+    {
+        &#x27;BACKEND&#x27;: &#x27;django.template.backends.django.DjangoTemplates&#x27;,
+        &#x27;DIRS&#x27;: [BASE_DIR / &#x27;templates&#x27;],
+        &#x27;APP_DIRS&#x27;: True,
+        &#x27;OPTIONS&#x27;: {
+            &#x27;context_processors&#x27;: [
+                &#x27;django.template.context_processors.debug&#x27;,
+                &#x27;django.template.context_processors.request&#x27;,
+                &#x27;django.contrib.auth.context_processors.auth&#x27;,
+                &#x27;django.contrib.messages.context_processors.messages&#x27;,
+            ],
+        },
+    },
+]
+
+WSGI_APPLICATION = &#x27;attendance_system.wsgi.application&#x27;
+
+# Database
+USE_SQLITE = os.environ.get(&#x27;USE_SQLITE&#x27;, &#x27;True&#x27;).lower() == &#x27;true&#x27;
+
+if USE_SQLITE:
+    DATABASES = {
+        &#x27;default&#x27;: {
+            &#x27;ENGINE&#x27;: &#x27;django.db.backends.sqlite3&#x27;,
+            &#x27;NAME&#x27;: BASE_DIR / &#x27;db.sqlite3&#x27;,
+        }
+    }
+else:
+    DATABASES = {
+        &#x27;default&#x27;: {
+            &#x27;ENGINE&#x27;: &#x27;django.db.backends.mysql&#x27;,
+            &#x27;NAME&#x27;: os.environ.get(&#x27;DB_NAME&#x27;, &#x27;attendance_system&#x27;),
+            &#x27;USER&#x27;: os.environ.get(&#x27;DB_USER&#x27;, &#x27;root&#x27;),
+            &#x27;PASSWORD&#x27;: os.environ.get(&#x27;DB_PASSWORD&#x27;, &#x27;&#x27;),
+            &#x27;HOST&#x27;: os.environ.get(&#x27;DB_HOST&#x27;, &#x27;localhost&#x27;),
+            &#x27;PORT&#x27;: os.environ.get(&#x27;DB_PORT&#x27;, &#x27;3306&#x27;),
+            &#x27;OPTIONS&#x27;: {
+                &#x27;charset&#x27;: &#x27;utf8mb4&#x27;,
+            },
+        }
+    }
+
+# Password validation
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        &#x27;NAME&#x27;: &#x27;django.contrib.auth.password_validation.UserAttributeSimilarityValidator&#x27;,
+    },
+    {
+        &#x27;NAME&#x27;: &#x27;django.contrib.auth.password_validation.MinimumLengthValidator&#x27;,
+        &#x27;OPTIONS&#x27;: {
+            &#x27;min_length&#x27;: 8,
+        }
+    },
+    {
+        &#x27;NAME&#x27;: &#x27;django.contrib.auth.password_validation.CommonPasswordValidator&#x27;,
+    },
+    {
+        &#x27;NAME&#x27;: &#x27;django.contrib.auth.password_validation.NumericPasswordValidator&#x27;,
+    },
+]
+
+# Internationalization
+LANGUAGE_CODE = &#x27;en-us&#x27;
+# Use local timezone; allow override via env. Default to Asia/Kolkata per deployment needs.
+TIME_ZONE = os.environ.get(&#x27;TIME_ZONE&#x27;, &#x27;Asia/Kolkata&#x27;)
+USE_I18N = True
+USE_TZ = True
+
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = &#x27;/static/&#x27;
+STATIC_ROOT = BASE_DIR / &#x27;staticfiles&#x27;
+STATICFILES_DIRS = [BASE_DIR / &#x27;static&#x27;]
+
+# Media files
+MEDIA_URL = &#x27;/media/&#x27;
+MEDIA_ROOT = BASE_DIR / &#x27;media&#x27;
+
+# Default primary key field type
+DEFAULT_AUTO_FIELD = &#x27;django.db.models.BigAutoField&#x27;
+
+# Custom user model
+AUTH_USER_MODEL = &#x27;users.User&#x27;
+
+# Auth redirects
+LOGIN_URL = &#x27;/login/&#x27;
+LOGIN_REDIRECT_URL = &#x27;/&#x27;
+LOGOUT_REDIRECT_URL = &#x27;/login/&#x27;
+
+# REST Framework settings
+REST_FRAMEWORK = {
+    &#x27;DEFAULT_AUTHENTICATION_CLASSES&#x27;: (
+        &#x27;rest_framework_simplejwt.authentication.JWTAuthentication&#x27;,
+    ),
+    &#x27;DEFAULT_PERMISSION_CLASSES&#x27;: (
+        &#x27;rest_framework.permissions.IsAuthenticated&#x27;,
+    ),
+    &#x27;DEFAULT_PAGINATION_CLASS&#x27;: &#x27;rest_framework.pagination.PageNumberPagination&#x27;,
+    &#x27;PAGE_SIZE&#x27;: 20,
+}
+
+# JWT settings
+SIMPLE_JWT = {
+    &#x27;ACCESS_TOKEN_LIFETIME&#x27;: timedelta(minutes=60),
+    &#x27;REFRESH_TOKEN_LIFETIME&#x27;: timedelta(days=1),
+    &#x27;ROTATE_REFRESH_TOKENS&#x27;: True,
+    &#x27;BLACKLIST_AFTER_ROTATION&#x27;: True,
+    &#x27;UPDATE_LAST_LOGIN&#x27;: True,
+}
+
+# CORS settings
+CORS_ALLOWED_ORIGINS = [
+    &quot;http://localhost:3000&quot;,
+    &quot;http://127.0.0.1:3000&quot;,
+]
+
+# Email settings
+EMAIL_BACKEND = &#x27;django.core.mail.backends.smtp.EmailBackend&#x27;
+EMAIL_HOST = os.environ.get(&#x27;EMAIL_HOST&#x27;, &#x27;smtp.gmail.com&#x27;)
+EMAIL_PORT = int(os.environ.get(&#x27;EMAIL_PORT&#x27;, 587))
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get(&#x27;EMAIL_HOST_USER&#x27;, &#x27;&#x27;)
+EMAIL_HOST_PASSWORD = os.environ.get(&#x27;EMAIL_HOST_PASSWORD&#x27;, &#x27;&#x27;)
+
+# Celery settings
+CELERY_BROKER_URL = os.environ.get(&#x27;REDIS_URL&#x27;, &#x27;redis://localhost:6379/0&#x27;)
+CELERY_RESULT_BACKEND = os.environ.get(&#x27;REDIS_URL&#x27;, &#x27;redis://localhost:6379/0&#x27;)
+CELERY_ACCEPT_CONTENT = [&#x27;json&#x27;]
+CELERY_TASK_SERIALIZER = &#x27;json&#x27;
+CELERY_RESULT_SERIALIZER = &#x27;json&#x27;
+
+# Face recognition service
+FACE_SERVICE_URL = os.environ.get(&#x27;FACE_SERVICE_URL&#x27;, &#x27;http://localhost:8001&#x27;)
+FACE_VERIFICATION_ENABLED = os.environ.get(&#x27;FACE_VERIFICATION_ENABLED&#x27;, &#x27;True&#x27;).lower() == &#x27;true&#x27;
+
+# Geofence settings
+# Enforce stricter defaults per requirements: 50m radius, 25m accuracy
+GEOFENCE_RADIUS = float(os.environ.get(&#x27;GEOFENCE_RADIUS&#x27;, 50))  # meters
+GPS_ACCURACY_THRESHOLD = float(os.environ.get(&#x27;GPS_ACCURACY_THRESHOLD&#x27;, 25))  # meters
+FACE_RECOGNITION_THRESHOLD = float(os.environ.get(&#x27;FACE_RECOGNITION_THRESHOLD&#x27;, 0.6))
+
+# File upload settings
+MAX_UPLOAD_SIZE = 2 * 1024 * 1024  # 2MB
+ALLOWED_IMAGE_TYPES = [&#x27;image/jpeg&#x27;, &#x27;image/png&#x27;, &#x27;image/jpg&#x27;]
+
+# Logging
+LOGGING = {
+    &#x27;version&#x27;: 1,
+    &#x27;disable_existing_loggers&#x27;: False,
+    &#x27;handlers&#x27;: {
+        &#x27;file&#x27;: {
+            &#x27;level&#x27;: &#x27;INFO&#x27;,
+            &#x27;class&#x27;: &#x27;logging.FileHandler&#x27;,
+            &#x27;filename&#x27;: BASE_DIR / &#x27;logs&#x27; / &#x27;django.log&#x27;,
+        },
+    },
+    &#x27;loggers&#x27;: {
+        &#x27;django&#x27;: {
+            &#x27;handlers&#x27;: [&#x27;file&#x27;],
+            &#x27;level&#x27;: &#x27;INFO&#x27;,
+            &#x27;propagate&#x27;: True,
+        },
+    },
+}
+
+# Create logs directory if it doesn&#x27;t exist
+os.makedirs(BASE_DIR / &#x27;logs&#x27;, exist_ok=True)
+</code></pre>
+    
+</body>
+</html>

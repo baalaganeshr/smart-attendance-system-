@@ -14,6 +14,9 @@ class Company(models.Model):
     """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, unique=True)
+    address = models.TextField(blank=True, help_text="Full address of the company/college")
+    phone = models.CharField(max_length=50, blank=True, help_text="Contact phone number")
+    email = models.EmailField(blank=True, help_text="Contact email address")
     lat = models.DecimalField(max_digits=9, decimal_places=6, help_text="Center latitude of company")
     lon = models.DecimalField(max_digits=9, decimal_places=6, help_text="Center longitude of company")
     radius = models.DecimalField(max_digits=6, decimal_places=2, default=150.0, help_text="Default geofence radius in meters")

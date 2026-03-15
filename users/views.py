@@ -27,33 +27,82 @@ def dashboard_redirect(request):
 
 @require_http_methods(["GET", "POST"])
 def login_view(request):
+	error_message = None
 	if request.method == 'POST':
-		username = request.POST.get('username') or request.POST.get('email')
-		password = request.POST.get('password')
-		user = authenticate(request, username=username, password=password)
-		if user is not None:
-			# Capture first-login before login() updates last_login
-			is_first_login = user.last_login is None
-			login(request, user)
-			# Force onboarding for students on first login or if face not enrolled
-			if getattr(user, 'is_student', False):
-				try:
-					face_enrolled = getattr(user.student_profile, 'face_enrolled', False)
-				except Exception:
-					face_enrolled = False
-				if is_first_login or not face_enrolled:
-					return redirect('users:student_onboarding')
-			return redirect('users:dashboard')
+		# Demo login check
+		if request.POST.get('demo_login') == 'true':
+			try:
+				# Try to find a demo/admin user or fallback to the first admin
+				user = User.objects.filter(role__in=['admin', 'superadmin']).first()
+				if user:
+					login(request, user)
+					return redirect('users:dashboard')
+				else:
+					# Create a demo admin if none exists
+					user = User.objects.create_superuser('admin', 'admin@example.com', 'admin123')
+					user.role = 'superadmin'
+					user.save()
+					login(request, user)
+					return redirect('users:dashboard')
+			except Exception as e:
+				error_message = f'Demo login failed: {str(e)}'
 
-		# Custom logic for error message
-		from .models import User
-		try:
-			user_obj = User.objects.get(username=username)
-			error_message = 'Invalid password.'
-		except User.DoesNotExist:
-			error_message = 'Invalid email.'
-		return render(request, 'users/login.html', {'error': error_message})
-	return render(request, 'users/login.html')
+		if request.POST.get('demo_student_login') == 'true':
+			try:
+				user = User.objects.filter(role='student').first()
+				if user:
+					login(request, user)
+					return redirect('users:dashboard')
+				else:
+					# Create a demo student
+					user = User.objects.create_user('student', 'student@example.com', 'student123')
+					user.role = 'student'
+					user.save()
+					from users.models import StudentProfile
+					# Create profile for new student
+					try:
+						StudentProfile.objects.create(
+							user=user, jntu_no='DEMO001', name='Demo Student',
+							company='Mahalakshmi Women\'s College of Arts and Science', lat=13.091499, lon=80.105168
+						)
+					except Exception:
+						pass # JNTU might exist
+					login(request, user)
+					return redirect('users:dashboard')
+			except Exception as e:
+				error_message = f'Demo student login failed: {str(e)}'
+
+		# Regular login logic
+		if not (request.POST.get('demo_login') or request.POST.get('demo_student_login')):
+			username = request.POST.get('username') or request.POST.get('email')
+			password = request.POST.get('password')
+			
+			if username and password:
+				user = authenticate(request, username=username, password=password)
+				if user is not None:
+					# Capture first-login before login() updates last_login
+					is_first_login = user.last_login is None
+					login(request, user)
+					# Force onboarding for students on first login or if face not enrolled
+					if getattr(user, 'is_student', False):
+						try:
+							face_enrolled = getattr(user.student_profile, 'face_enrolled', False)
+						except Exception:
+							face_enrolled = False
+						if is_first_login or not face_enrolled:
+							return redirect('users:student_onboarding')
+					return redirect('users:dashboard')
+				else:
+					# Custom logic for error message
+					try:
+						User.objects.get(username=username)
+						error_message = 'Invalid password.'
+					except User.DoesNotExist:
+						error_message = 'Invalid email.'
+			else:
+				error_message = 'Please provide credentials.'
+	
+	return render(request, 'users/login.html', {'error': error_message})
 
 
 def logout_view(request):

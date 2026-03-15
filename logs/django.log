@@ -6943,3 +6943,111 @@ Not Found: /favicon.ico
 "GET /logout/ HTTP/1.1" 302 0
 "GET /login/ HTTP/1.1" 200 5853
 "GET /login/ HTTP/1.1" 200 5853
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 302 0
+"GET /login/ HTTP/1.1" 200 5853
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 5158
+"POST /login/ HTTP/1.1" 200 6018
+"POST /login/ HTTP/1.1" 200 6018
+"POST /login/ HTTP/1.1" 302 0
+"GET /student/onboarding/ HTTP/1.1" 200 6509
+"GET /student/profile/ HTTP/1.1" 302 0
+"GET /student/onboarding/ HTTP/1.1" 200 6509
+"GET /student/dashboard/ HTTP/1.1" 200 10385
+"GET /student/profile/ HTTP/1.1" 302 0
+"GET /student/onboarding/ HTTP/1.1" 200 6509
+"GET /api/student/attendance/mark/ HTTP/1.1" 200 32460
+"GET /student/contact/ HTTP/1.1" 200 7723
+"GET /student/profile/ HTTP/1.1" 302 0
+"GET /student/onboarding/ HTTP/1.1" 200 6509
+"POST /student/onboarding/ HTTP/1.1" 200 6628
+"GET /student/profile/ HTTP/1.1" 302 0
+"GET /login/?next=/student/profile/ HTTP/1.1" 200 5853
+"GET / HTTP/1.1" 302 0
+"GET /login/ HTTP/1.1" 200 5853
+"GET / HTTP/1.1" 302 0
+"GET /login/ HTTP/1.1" 200 5853
+C:\Users\baala\OneDrive\Desktop\New folder\student-attendance-sys\attendance\models.py changed, reloading.
+C:\Users\baala\OneDrive\Desktop\New folder\student-attendance-sys\attendance\models.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+C:\Users\baala\OneDrive\Desktop\New folder\student-attendance-sys\attendance\views.py changed, reloading.
+C:\Users\baala\OneDrive\Desktop\New folder\student-attendance-sys\attendance\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+C:\Users\baala\OneDrive\Desktop\New folder\student-attendance-sys\attendance\views.py changed, reloading.
+C:\Users\baala\OneDrive\Desktop\New folder\student-attendance-sys\attendance\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+C:\Users\baala\OneDrive\Desktop\New folder\student-attendance-sys\attendance\views.py changed, reloading.
+C:\Users\baala\OneDrive\Desktop\New folder\student-attendance-sys\attendance\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+C:\Users\baala\OneDrive\Desktop\New folder\student-attendance-sys\users\views.py changed, reloading.
+C:\Users\baala\OneDrive\Desktop\New folder\student-attendance-sys\users\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+C:\Users\baala\OneDrive\Desktop\New folder\student-attendance-sys\attendance\views.py changed, reloading.
+C:\Users\baala\OneDrive\Desktop\New folder\student-attendance-sys\users\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /login/ HTTP/1.1" 200 6135
+"POST /login/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /admin/dashboard/ HTTP/1.1" 200 7572
+"GET /api/admin/students/upload/ HTTP/1.1" 200 6590
+"GET /api/admin/companies/ HTTP/1.1" 200 17496
+"GET /api/admin/students/manage/ HTTP/1.1" 200 52484
+"GET /api/admin/analytics/ HTTP/1.1" 200 10697
+"GET /api/admin/contact-messages/ HTTP/1.1" 200 7076
+"GET /admin/dashboard/ HTTP/1.1" 200 7572
+"GET /api/admin/students/upload/ HTTP/1.1" 200 6590
+"GET /admin/dashboard/ HTTP/1.1" 200 7572
+"GET /api/admin/students/upload/ HTTP/1.1" 200 6590
+C:\Users\baala\OneDrive\Desktop\New folder\student-attendance-sys\users\views.py changed, reloading.
+C:\Users\baala\OneDrive\Desktop\New folder\student-attendance-sys\users\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /api/admin/students/upload/ HTTP/1.1" 200 6590
+"GET /api/admin/students/upload/ HTTP/1.1" 200 6590
+"GET /api/admin/students/upload/ HTTP/1.1" 200 6590
+"GET /api/admin/students/upload/ HTTP/1.1" 200 6590
+"GET /api/admin/students/upload/ HTTP/1.1" 200 6590
+"GET /api/admin/students/upload/ HTTP/1.1" 200 6590
+"GET /api/admin/students/upload/ HTTP/1.1" 200 6590
+"GET /api/admin/students/upload/ HTTP/1.1" 200 6590
+"GET /api/admin/students/upload/ HTTP/1.1" 200 6590
+"GET /api/admin/students/upload/ HTTP/1.1" 200 6590
+"GET /api/admin/companies/ HTTP/1.1" 200 17496
+"GET /admin/dashboard/ HTTP/1.1" 200 7572
+"GET /logout/ HTTP/1.1" 302 0
+"GET /login/ HTTP/1.1" 200 6467
+"POST /login/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /student/dashboard/ HTTP/1.1" 200 11415
+"GET /api/student/attendance/mark/ HTTP/1.1" 200 32692
+C:\Users\baala\OneDrive\Desktop\New folder\student-attendance-sys\attendance\views.py changed, reloading.
+C:\Users\baala\OneDrive\Desktop\New folder\student-attendance-sys\attendance\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+C:\Users\baala\OneDrive\Desktop\New folder\student-attendance-sys\attendance\views.py changed, reloading.
+C:\Users\baala\OneDrive\Desktop\New folder\student-attendance-sys\attendance\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /api/student/attendance/mark/ HTTP/1.1" 200 33634
+"POST /api/student/attendance/mark/ HTTP/1.1" 302 0
+"GET /student/dashboard/ HTTP/1.1" 200 13627
+"GET /student/dashboard/ HTTP/1.1" 200 13214
+"GET /student/profile/ HTTP/1.1" 302 0
+"GET /student/onboarding/ HTTP/1.1" 200 6511
+"GET /api/student/attendance/mark/ HTTP/1.1" 200 33634
+"GET /student/contact/ HTTP/1.1" 200 7725
+"GET /student/profile/ HTTP/1.1" 302 0
+"GET /student/onboarding/ HTTP/1.1" 200 6511
+"GET /student/dashboard/ HTTP/1.1" 200 13214
+C:\Users\baala\OneDrive\Desktop\New folder\student-attendance-sys\users\views.py changed, reloading.
+C:\Users\baala\OneDrive\Desktop\New folder\student-attendance-sys\users\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader

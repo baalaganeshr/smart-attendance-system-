@@ -1,182 +1,132 @@
-<<<<<<< HEAD
-# Smart Attendance System Using Geo Fencing and Face Recognition
+# Smart Attendance System - Mahalakshmi Women's College Edition
 
-A Django-based attendance system with geofencing and facial recognition.
+A Django-based smart attendance tracking system using **Face Recognition** and **Geofencing**. Custom configured for Mahalakshmi Women's College of Arts and Science.
 
-## Features
+## 🚀 Features
 
-- Multi-role system (Super-Admin, Admin, Student)
-- GPS-based geofencing
-- AI facial recognition
-- Real-time analytics
-- JWT authentication
+- **Face Recognition**: Verifies student identity using AI.
+- **Geofencing**: Ensures students are physically present on campus (Mahalakshmi Nagar, Avadi).
+- **Role-Based Access**:
+  - **Super Admin**: Manage admins and system settings.
+  - **Admin**: Manage students and view analytics.
+  - **Student**: Mark attendance and view history.
+- **Demo Mode**: One-click login for demonstration purposes.
 
-## Setup
+---
 
-1. Install dependencies: `pip install -r requirements.txt`
-2. Configure MySQL database
-3. Run migrations: `python manage.py migrate`
-4. Create super admin: `python manage.py seed_superadmin`
-5. Start services: Django, FastAPI face service, Redis, Celery
+## 🛠️ Installation Guide (Windows)
 
-## Usage
+Follow these steps to set up the project on your local machine.
 
-- Super-Admin: `/super/dashboard`
-- Admin: `/admin/dashboard`
-- Student: `/student/dashboard`
-=======
-Smart Attendance System Using Geo-Fencing and Face Recognition
-📌 Overview
-The Smart Attendance System combines Face Recognition and Geo-Fencing to automate secure, location-based attendance marking for students and staff.
-This system prevents proxy attendance, ensures authenticity, and provides a user-friendly admin dashboard for monitoring attendance in real time.
+### 1. Prerequisites
+- Python 3.10 or higher installed.
+- Git (optional, for cloning).
 
-## ✨ Key Features
-## 🔐 Face Recognition
-Detects and recognizes faces using OpenCV and dlib/face_recognition.
+### 2. Set Up Virtual Environment
+Open your terminal (PowerShell or Command Prompt) in the project folder:
 
-Ensures only registered individuals can mark attendance.
+```powershell
+# Create virtual environment
+python -m venv venv
 
-High accuracy even in different lighting conditions.
+# Activate virtual environment
+# Windows:
+.\venv\Scripts\activate
+# Mac/Linux:
+# source venv/bin/activate
+```
 
-## 📍 Geo-Fencing Based Validation
-Attendance is allowed only when the user is within a predefined radius (e.g., 100m) of the institution.
+### 3. Install Dependencies
+This project uses `dlib` for face recognition. On Windows, we use a pre-compiled binary to avoid complex build errors.
 
-Uses device GPS (browser/Android API) for location verification.
+```powershell
+# First, upgrade pip
+python -m pip install --upgrade pip
 
-Prevents fake or proxy attendance from outside locations.
+# Install CMake (required for some packages)
+pip install cmake
 
-## 🖥️ Admin Dashboard
-View daily/weekly/monthly attendance.
+# Install Dependencies
+pip install -r requirements.txt
+```
 
-Add/manage students and staff.
+> **Note:** If `dlib` fails to install, try installing the pre-built binary directly:
+> `pip install dlib-bin`
 
-Generate attendance reports in CSV/PDF.
+### 4. Database Setup
+Initialize the database and apply migrations.
 
-Monitor geo-location logs and face recognition logs.
+```powershell
+python manage.py migrate
+```
 
-## 👨‍💻 User Portal
-Students can view their attendance history.
+### 5. Create Admin User (Optional)
+You can create a superuser to access the admin panel, or use the **Demo Admin** button on the login page.
 
-Staff can verify class attendance.
+```powershell
+python manage.py createsuperuser
+# Follow the prompts to set username (e.g., admin) and password
+```
 
-Secure login for both students and admins.
+---
 
-## 🧰 Tech Stack
-Backend
-Python 3.x
+## ▶️ Running the Application
 
-Django Framework
+1. Start the Django development server:
+   ```powershell
+   python manage.py runserver
+   ```
 
-SQLite/MySQL
+2. Open your web browser and go to:
+   **[http://127.0.0.1:8000/](http://127.0.0.1:8000/)**
 
-Frontend
-HTML5, CSS3
+---
 
-JavaScript
+## 📱 How to Use (Demo Mode)
 
-Bootstrap
+We have added **Demo Buttons** on the login page for easy testing.
 
-AI Modules
-OpenCV
+### 1. Login
+- Click **"Demo Admin Login"**: Logs you in as an Administrator.
+  - Use this to **View Attendance Logs** and **Manage Students**.
+- Click **"Demo Student Login"**: Logs you in as a Student.
+  - Use this to **Mark Attendance**.
 
-face_recognition library
+### 2. Marking Attendance
+1. Log in as a **Student**.
+2. Click **"Mark Attendance"**.
+3. **Location Check**:
+   - The system checks if you are at **Mahalakshmi Women's College** (13.091499, 80.105168).
+   - Radius: **150 meters**.
+   - If you are testing from home (away from college), a popup will appear. Check the distance and click **"Proceed Anyway"** (this will mark you as *Absent/Location Failed*, but records the attempt).
+4. **Camera Check**:
+   - Allow camera permissions.
+   - Click **"Start Camera"** -> **"Capture Selfie"**.
+5. Click **"Mark Attendance"**.
 
-dlib
+### 3. Viewing Analytics (Admin)
+1. Log in as an **Admin**.
+2. Go to **Analytics** or **Dashboard**.
+3. You will see the attendance records (including "Failed" attempts from remote locations).
 
-Location Services
-Browser Geolocation API
+---
 
-## ⚙️ Installation Guide:
- 1️⃣ Clone the Repository:
-    git clone https://github.com/your-username/Smart-Attendance-System-Using-Geo-Fencing-and-Face-Recognition.git
-    cd Smart-Attendance-System-Using-Geo-Fencing-and-Face-Recognition
- 2️⃣ Create Virtual Environment:
-    python -m venv venv
-    venv/Scripts/activate  (Windows)
-    source venv/bin/activate (Linux/Mac)
- 3️⃣ Install Dependencies:
-    pip install -r requirements.txt
- 4️⃣ Apply Migrations:
-    python manage.py makemigrations
-    python manage.py migrate
-  5️⃣ Run the Server:
-    python manage.py runserver
+## 📍 College Configuration
+The system allows attendance **only** within the college campus.
+- **Location**: No. 1, Mahalakshmi Nagar, Paruthipattu, Avadi, Chennai 600071.
+- **Coordinates**: 13.091499° N, 80.105168° E
 
-##  How Face Recognition Works
-Face encodings are generated during registration.
+---
 
-OpenCV captures a real-time frame from the camera.
+## ❓ Troubleshooting
 
-The system compares live encodings with stored encodings.
+**Camera not working?**
+- Ensure you are using `http://127.0.0.1:8000` (localhost) or an HTTPS connection. Browsers block camera access on insecure HTTP connections (except localhost).
+- Check browser permissions.
 
-If the match is above threshold → attendance is marked.
+**"Proceed Anyway" button missing?**
+- Clear your browser cache (Ctrl + F5).
 
-##  How Geo-Fencing Works
-User's location is captured using browser GPS.
-
-Distance is calculated using Haversine formula.
-
-## Screenshots:
-   ### 🟦 Super Admin Dashboard
-   ![Superadmin Dashboard](screenshots/superadmin_dashboard.png)
-
-   ### 🟦 Admin Dashboard
-   ![Admin Dashboard](screenshots/admin_dashboard.png)
-
-   ### 🟦 Student Dashboard
-   ![Student Dashboard](screenshots/student_dashboard.png)
-   
-   ### 👤 Face Recognition
-   ![Face Recognition](screenshots/face_recognition.png)
-
-   ### 📍 Geo-Fencing Verification
-   ![Geo Fencing](screenshots/location_validation.png)
-
-
-
-
-
-
-
-📑 Future Enhancements
-Mobile App (Flutter/React Native)
-
-QR Code + Face recognition hybrid system
-
-OTP verification for multi-factor attendance
-
-AI-based spoof detection
-
-##  Contributions
-Pull requests are welcome.
-For major changes, open an issue first to discuss the changes.
-
-📄 License
-This project is licensed under the MIT License.
-
-## 👨‍🎓 Author
-Nagalla Vara Prasad
-B.Tech CSE (AI & ML) – GMRIT
-Django | AI/ML | Computer Vision
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> c4ac63b70c67d950d71d5dd3b1e3b02464ef52a3
+**`dlib` installation error?**
+- Make sure you installed `cmake` first.
+- Try `pip install dlib-bin` instead of `dlib`.
